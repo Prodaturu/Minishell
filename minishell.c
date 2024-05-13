@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mininshell.c                                       :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/06 13:33:39 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/13 03:35:46 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals/signal_handler.h"
+#include "includes/minishell.h"
+
+void	executor(t_ms *ms)
+{
+	(void)ms;
+}
 
 int	wrong_input(char *input)
 {
@@ -25,19 +31,62 @@ int	wrong_input(char *input)
 	return (0);
 }
 
+// wrong_input function:
+// 1. Check if input is NULL.
+// 2. If input is NULL, return 1.
+// 3. Check if length of input is 0.
+// 4. If length of input is 0, free input, return 1.
+// 5. Check if the input is "clear".
+// 6. If input is "clear", clear the screen, free input, return 1.
+// 7. Check if the input is "exit".
+// 8. If input is "exit", free input, exit the program, return 1.
+// 9. else Return 0.
+
+// main function
+
+//! Add executor function after parser
+
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	t_ms	ms;
 
+	ms.env = envp;
+	if (argc != 1)
+		return (printf("Usage: ./mini_shell\n"), 1);
 	signal_handler();
+	rl_bind_key('\t', rl_complete);
+	using_history();
 	while (9)
 	{
-		input = readline("RosPro-shell$ :");
-		if (wrong_input(input))
+		ms.input = readline("RosPro-shell$ :");
+		if (ms.input)
+			add_history(ms.input);
+		if (wrong_input(ms.input))
 			continue ;
+		if (!parse(&ms))
+		{
+			free(ms.input);
+			continue ;
+		}
+		executor(&ms);
 	}
-	return ((void)argv, (void)argc, 0);
+	return (clear_history(), (void)argv, (void)argc, 0);
 }
 
-	// if(check_syntax_error());
-	// 	continue;
+// main logic:
+// 1. Initialize the minishell structure.
+// 2. Check the number of arguments passed to the program.
+// 3. Call signal_handler function to handle signals.
+// 4. Bind the tab key to rl_complete function.
+// 5. Call the using_history function to enable history.
+// 6. Start an infinite loop to read the input from user.
+// 7. Read the input from the user.
+// 8. Add the input to the history.
+// 9. Check if the input is wrong.
+// 10. If input is wrong, continue to next iteration.
+// 11. If input is correct, parse the input.
+// 12. If parsing is successful, execute the command.
+// 13. Free input.
+// 14. Continue to next iteration.
+// 15. When done clear the history and return 0.
+// 16. End of main function.

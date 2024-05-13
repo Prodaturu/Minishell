@@ -6,10 +6,11 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:08:46 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/06 06:42:37 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/12 21:45:46 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 #include "signal_handler.h"
 
 //-> ctrl + c. : Signal interrupt.
@@ -61,12 +62,16 @@ void	sigquits_handler(void)
 	sigaction(SIGQUIT, &act, NULL);
 }
 
+// ! Add handle_termios(true); to signal_handler function
+
 void	signal_handler(void)
 {
-	// handle_termios(true);
 	sigquits_handler();
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 }
 
-// signal(SIGUSR1, sigd_handler);
+// signal_handler function:
+// 1. Call sigquits_handler function to ignore SIGQUIT signal.
+// 2. Call signal function to handle SIGINT signal.
+// 3. Call signal function to handle SIGQUIT signal.
