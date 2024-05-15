@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:00:05 by sprodatu          #+#    #+#             */
-/*   Updated: 2023/10/28 07:20:02 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/13 07:10:29 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_node
 
 int		ft_isdigit(int number);
 int		ft_isalnum(int num);
+int		ft_isspace(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isalpha(int character);

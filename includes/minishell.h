@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/12 21:44:49 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:28:54 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
@@ -36,23 +36,6 @@ typedef struct s_cmd
 	int				fd_out;
 }			t_cmd;
 
-typedef struct s_ms
-{
-	pid_t	*pids;
-	char	*input;
-	char	*tokens;
-	char	**env;
-	t_cmd	*cmd;
-	int		W;
-}		t_ms;
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}			t_env;
-
 // To store the type of token and its value
 // Example: ls | cat
 // ls is a WORD token
@@ -60,15 +43,21 @@ typedef struct s_env
 // cat is a WORD token
 // This will be used to parse the input
 // and create a linked list of tokens
+// to be used in the execution of the command
+// Example: ls | cat
+// The linked list will be:
+// ls -> | -> cat
 
 typedef enum s_type
 {
 	WORD,
 	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
+	IN,
+	R_IN,
+	OUT,
+	R_OUT,
 	REDIR_APPEND,
-	HDOC
+	END
 }	t_type;
 
 typedef struct s_token
@@ -79,6 +68,37 @@ typedef struct s_token
 	struct s_token	*prev;
 }			t_token;
 
-int	parse(t_ms *ms);
+typedef struct s_ms
+{
+	pid_t	*pids;
+	char	*input;
+	t_token	*token;
+	char	**env;
+	t_cmd	*cmd;
+	int		exit_code;
+}		t_ms;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}			t_env;
+
+typedef struct s_lex
+{
+	char	*input;
+	int		pos;
+	int		single_q;
+	int		double_q;
+}		t_lex;
+
+//: main functions:
+
+int			parse(t_ms *ms);
+int			lexing(t_ms *ms);
+
+//: token handler functions:
+t_token		*pipe_token(t_lex *lexer);
 
 #endif

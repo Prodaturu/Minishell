@@ -6,12 +6,17 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/13 03:35:46 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/13 04:47:36 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals/signal_handler.h"
 #include "includes/minishell.h"
+
+void	free_commands(t_ms *ms)
+{
+	(void) (*ms);
+}
 
 void	executor(t_ms *ms)
 {
@@ -22,7 +27,7 @@ int	wrong_input(char *input)
 {
 	if (!input)
 		return (1);
-	if (ft_strlen(input) == 0)
+	if (ft_strlen(input) == 0 || input[0] == '\0')
 		return (free(input), 1);
 	if (ft_strncmp(input, "clear", 5) == 0)
 		return (printf("\033[H\033[J"), free(input), 1);
@@ -46,6 +51,20 @@ int	wrong_input(char *input)
 
 //! Add executor function after parser
 
+int	process(t_ms *ms)
+{
+	ms->input = readline("RosPro-shell$ :");
+	if (ms->input)
+		add_history(ms->input);
+	else
+		return (printf("\n"), 0);
+	if (wrong_input(ms->input))
+		return (0);
+	if (!parse(ms))
+		return (free(ms->input), 0);
+	return (executor(ms), free_commands(ms), free(ms->input), 1);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
@@ -57,19 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_bind_key('\t', rl_complete);
 	using_history();
 	while (9)
-	{
-		ms.input = readline("RosPro-shell$ :");
-		if (ms.input)
-			add_history(ms.input);
-		if (wrong_input(ms.input))
-			continue ;
-		if (!parse(&ms))
-		{
-			free(ms.input);
-			continue ;
-		}
-		executor(&ms);
-	}
+		process(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }
 
