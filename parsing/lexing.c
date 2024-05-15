@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 08:35:17 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:51:54 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_lex	*lexeH_DOCit(t_ms *ms)
 	if (!lexer)
 		return (NULL);
 	lexer->input = ms->input;
-	lexer->double_q = 0;
-	lexer->single_q = 0;
+	lexer->dq = 0;
+	lexer->sq = 0;
 	lexer->pos = 0;
 	return (lexer);
 }

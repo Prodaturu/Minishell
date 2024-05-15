@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 08:35:17 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:51:54 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ typedef enum s_type
 	IN,
 	H_DOC,
 	OUT,
-	R_OUT,
-	REDIR_APPEND,
+	APPEND,
 	END
 }	t_type;
 
@@ -89,8 +88,8 @@ typedef struct s_lex
 {
 	char	*input;
 	int		pos;
-	int		single_q;
-	int		double_q;
+	int		sq;
+	int		dq;
 }		t_lex;
 
 //: main functions: ---------------------
@@ -106,5 +105,6 @@ void		free_tokens(t_token *token);
 //: token handler functions:
 t_token		*pipe_token(t_lex *lexer);
 t_token		*in_token(t_lex *lexer);
+t_token		*out_token(t_lex *lexer);
 
 #endif
