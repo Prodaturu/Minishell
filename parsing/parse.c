@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 02:01:55 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 08:31:08 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	free_tokens(t_token *token)
 		token = temp;
 	}
 }
+
+/**
+ * Parses the input command line and performs necessary operations.
+ * 
+ * @param mini A pointer to the t_mini structure representing the mini shell.
+ * @return Returns 1 if the parsing is successful, 0 otherwise.
+ */
 
 int	parse(t_ms *ms)
 {

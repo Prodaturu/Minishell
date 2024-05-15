@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/14 16:28:54 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 08:35:17 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef enum s_type
 	WORD,
 	PIPE,
 	IN,
-	R_IN,
+	H_DOC,
 	OUT,
 	R_OUT,
 	REDIR_APPEND,
@@ -93,12 +93,18 @@ typedef struct s_lex
 	int		double_q;
 }		t_lex;
 
-//: main functions:
+//: main functions: ---------------------
 
 int			parse(t_ms *ms);
 int			lexing(t_ms *ms);
 
+//: main functions end: -----------------
+
+//: freeing parser functions:
+void		free_tokens(t_token *token);
+
 //: token handler functions:
 t_token		*pipe_token(t_lex *lexer);
+t_token		*in_token(t_lex *lexer);
 
 #endif

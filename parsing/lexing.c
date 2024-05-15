@@ -6,13 +6,13 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/14 05:31:26 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 08:35:17 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_lex	*lexer_init(t_ms *ms)
+t_lex	*lexeH_DOCit(t_ms *ms)
 {
 	t_lex	*lexer;
 
@@ -25,6 +25,13 @@ t_lex	*lexer_init(t_ms *ms)
 	lexer->pos = 0;
 	return (lexer);
 }
+
+/**
+ * Retrieves the next token from the input string.
+ *
+ * @param lexer The lexer object.
+ * @return The next token.
+ */
 
 t_token	*get_token(t_lex *lexer)
 {
@@ -39,10 +46,10 @@ t_token	*get_token(t_lex *lexer)
 			lexer->pos++;
 		else if (current_char == '|')
 			return (pipe_token(lexer));
-		else if (current_char == '>')
-			return (out_token(lexer));
 		else if (current_char == '<')
 			return (in_token(lexer));
+		else if (current_char == '>')
+			return (out_token(lexer));
 		else
 			return (word_token(lexer));
 	}
@@ -53,7 +60,7 @@ int	lexing(t_ms *ms)
 {
 	t_lex	*lexer;
 
-	lexer = lexer_init(ms);
+	lexer = lexeH_DOCit(ms);
 	if (!lexer || !lexer->input)
 		return (free(lexer), 0);
 	ms->token = get_token(lexer);

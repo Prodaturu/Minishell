@@ -6,12 +6,14 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/13 04:47:36 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/15 06:25:26 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals/signal_handler.h"
 #include "includes/minishell.h"
+
+int	g_signal = 0;
 
 void	free_commands(t_ms *ms)
 {
@@ -53,7 +55,8 @@ int	wrong_input(char *input)
 
 int	process(t_ms *ms)
 {
-	ms->input = readline("RosPro-shell$ :");
+	g_signal = 0;
+	ms->input = readline("PROSI-shell$ :");
 	if (ms->input)
 		add_history(ms->input);
 	else
@@ -73,10 +76,11 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		return (printf("Usage: ./mini_shell\n"), 1);
 	signal_handler();
-	rl_bind_key('\t', rl_complete);
 	using_history();
+	rl_bind_key('\t', rl_complete);
 	while (9)
-		process(&ms);
+		if (!process(&ms))
+			continue ;
 	return (clear_history(), (void)argv, (void)argc, 0);
 }
 
