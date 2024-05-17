@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_redirect.c                                   :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 17:10:56 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/17 04:36:29 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,6 @@ t_token	*out_token(t_lex *lexer)
 	}
 }
 
-t_token	*word_token_value(int start, t_lex *lex)
-{
-	t_token	*token;
-	char	*value;
-
-	value = ft_substr(lex->input, start, lex->pos - start);
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!value || !token)
-		return (free(value), NULL);
-	token->type = WORD;
-	token->value = value;
-	return (token);
-}
-
 /**
  * Handles a word token in the lexer.
  *
@@ -105,8 +91,8 @@ t_token	*word_token(t_lex *lex)
 	start = lex->pos;
 	while (lex->input[lex->pos])
 	{
-		if (lex->input[lex->pos] == '\'' || lex->input[lex->pos] == '"')
-			quote_token(lex);
+		if (lex->input[lex->pos] == '\'' || lex->input[lex->pos] == '\"')
+			quote_token_value(lex, lex->input[lex->pos]);
 		if (ft_isspace(lex->input[lex->pos]) && !(lex->dq || lex->sq))
 			break ;
 		if ((lex->input[lex->pos] == '|' || lex->input[lex->pos] == '<'
@@ -115,6 +101,19 @@ t_token	*word_token(t_lex *lex)
 		lex->pos++;
 	}
 	if (lex->dq || lex->sq)
-		return (unclosed_quote_token(lex));
+		return (unclosed_quote_token());
 	return (word_token_value(start, lex));
+}
+
+t_token	*eof_token(void)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = END;
+	token->value = "EOF";
+	token->next = NULL;
+	return (token);
 }

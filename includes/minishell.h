@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 16:51:54 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/17 05:50:35 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef enum s_type
 	H_DOC,
 	OUT,
 	APPEND,
+	ERR,
 	END
 }	t_type;
 
@@ -106,5 +107,17 @@ void		free_tokens(t_token *token);
 t_token		*pipe_token(t_lex *lexer);
 t_token		*in_token(t_lex *lexer);
 t_token		*out_token(t_lex *lexer);
+t_token		*word_token(t_lex *lex);
+t_token		*eof_token(void);
+
+// helpers (tokenizer_helper.c)
+
+t_token		*word_token_value(int start, t_lex *lex);
+void		quote_token_value(t_lex *lex, char quote);
+t_token		*unclosed_quote_token(void);
+
+//: Syntax check functions:
+
+int			syntax_error(t_ms *ms);
 
 #endif

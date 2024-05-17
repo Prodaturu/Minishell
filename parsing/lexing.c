@@ -6,13 +6,13 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 16:51:54 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/16 21:46:08 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_lex	*lexeH_DOCit(t_ms *ms)
+t_lex	*lexer_init(t_ms *ms)
 {
 	t_lex	*lexer;
 
@@ -53,14 +53,14 @@ t_token	*get_token(t_lex *lexer)
 		else
 			return (word_token(lexer));
 	}
-	return (eof_token(lexer));
+	return (eof_token());
 }
 
 int	lexing(t_ms *ms)
 {
 	t_lex	*lexer;
 
-	lexer = lexeH_DOCit(ms);
+	lexer = lexer_init(ms);
 	if (!lexer || !lexer->input)
 		return (free(lexer), 0);
 	ms->token = get_token(lexer);
