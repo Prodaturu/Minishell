@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 05:50:35 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 07:19:34 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	int				fd_in;
 	int				fd_out;
+	t_token			*token;
 }			t_cmd;
 
 // To store the type of token and its value
@@ -119,5 +120,8 @@ t_token		*unclosed_quote_token(void);
 //: Syntax check functions:
 
 int			syntax_error(t_ms *ms);
+
+//: commands functions:
+int			commands(t_ms *ms);
 
 #endif

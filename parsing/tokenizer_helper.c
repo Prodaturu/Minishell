@@ -6,11 +6,25 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 04:45:00 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:59:39 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/**
+ * Creates a word token with the specified value.
+ *
+ * @param start The starting index of the word in the input string.
+ * @param lex The lexical analyzer structure.
+ * @return A pointer to created word token, or NULL if malloc fails.
+ * 
+ * The word token is created by copying substring of input string
+ * starting from the specified index and ending at the current position.
+ * The token type is set to the WORD and
+ * The value is set to the copied substring.
+ * Then the created token is returned.
+ */
 
 t_token	*word_token_value(int start, t_lex *lex)
 {
@@ -26,6 +40,44 @@ t_token	*word_token_value(int start, t_lex *lex)
 	return (token);
 }
 
+/**
+ * @brief Handles the quoting of token values.
+ * 
+ * Toggles flags of single quotes (') and double quotes (") 
+ * based on the input character and the current state of the lexer.
+ * 
+ * @param l The lexer object.
+ * @param q The input character representing the quote type.
+ * 
+ * Quote modes:
+ * 1. Single quote mode: l->sq = 1
+ * 2. Double quote mode: l->dq = 1
+ * 3. Exit single quote mode: l->sq = 0
+ * 4. Exit double quote mode: l->dq = 0
+ * 
+ * If the input character is a single quote (') and
+ * the lexer is not in quote mode and
+ * the previous character is not an escape character,
+ * then enter single quote mode.
+ * 
+ * If the input character is a single quote (') and
+ * the lexer is in single quote mode and
+ * the lexer is not in double quote mode and
+ * the previous character is not an escape character,
+ * then exit single quote mode.
+ * 
+ * If the input character is a double quote (") and
+ * the lexer is not in quote mode and
+ * the previous character is not an escape character,
+ * then enter double quote mode.
+ * 
+ * If the input character is a double quote (") and
+ * the lexer is not in single quote mode and
+ * the lexer is in double quote mode and
+ * the previous character is not an escape character,
+ * then exit double quote mode.
+ */
+
 void	quote_token_value(t_lex *l, char q)
 {
 	if (q == '\'' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
@@ -38,6 +90,18 @@ void	quote_token_value(t_lex *l, char q)
 		l->dq = 0;
 	l->pos++;
 }
+
+/**
+ * @brief Creates an unclosed quote token.
+ * 
+ * Creates a token with the type ERR and the value "Unclosed quote".
+ * 
+ * @return A pointer to the created token, or NULL if malloc fails.
+ * 
+ * Create a token and set the type to ERR and the value to "Unclosed quote".
+ * set next to NULL
+ * return the created token.
+ */
 
 t_token	*unclosed_quote_token(void)
 {

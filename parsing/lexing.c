@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/16 21:46:08 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 02:37:07 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,21 @@ t_token	*get_token(t_lex *lexer)
 	}
 	return (eof_token());
 }
+
+/**
+ * @brief create tokens for different types of input
+ * 
+ * @param lexer
+ * 
+ * @return The next token.
+ * 
+ * Get the length of the input string.
+ * Loop until the position is less than the length of the input string.
+ * Get the current character.
+ * If the current character is a space, increment the position.
+ * Else if the current character is a pipe, return a pipe token.
+ * Else if the current character is a less than sign, return an in token.
+ */
 
 int	lexing(t_ms *ms)
 {

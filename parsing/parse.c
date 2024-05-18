@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 05:41:00 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 07:05:03 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,14 @@ int	parse(t_ms *ms)
 		return (free_tokens(ms->token), 0);
 	if (syntax_error(ms))
 		return (free_tokens(ms->token), 0);
+	if (!commands(ms))
+		return (free_tokens(ms->token), 0);
+	if (!expander(ms))
+		return (free_tokens(ms->token), 0);
+	if (!redirections(ms))
+		return (free_tokens(ms->token), 0);
 	return (free_tokens(ms->token), 1);
 }
-
-	// if (syntax_error(ms))
-	// 	return (free_tokens(ms->token), 0);
-	// if (!commands(ms))
-	// 	return (free_tokens(ms->token), 0);
-	// if (!expander(ms))
-	// 	return (free_tokens(ms->token), 0);
-	// if (!redirections(ms))
-	// 	return (free_tokens(ms->token), 0);
 
 // parse function:
 // 1. Call lexing function.

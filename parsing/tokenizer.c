@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 04:36:29 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/17 09:17:03 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,9 @@ t_token	*word_token(t_lex *lex)
 	{
 		if (lex->input[lex->pos] == '\'' || lex->input[lex->pos] == '\"')
 			quote_token_value(lex, lex->input[lex->pos]);
-		if (ft_isspace(lex->input[lex->pos]) && !(lex->dq || lex->sq))
-			break ;
-		if ((lex->input[lex->pos] == '|' || lex->input[lex->pos] == '<'
-				|| lex->input[lex->pos] == '>') && !(lex->dq || lex->sq))
+		if ((ft_isspace(lex->input[lex->pos]) || lex->input[lex->pos] == '|'
+				|| lex->input[lex->pos] == '<' || lex->input[lex->pos] == '>')
+			&& !(lex->dq || lex->sq))
 			break ;
 		lex->pos++;
 	}
@@ -104,6 +103,12 @@ t_token	*word_token(t_lex *lex)
 		return (unclosed_quote_token());
 	return (word_token_value(start, lex));
 }
+
+/**
+ * Creates and returns a new token representing the end of file (EOF).
+ *
+ * @return pointer to the newly created token, NULL if malloc fails.
+ */
 
 t_token	*eof_token(void)
 {

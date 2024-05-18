@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/15 06:25:26 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 07:18:27 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,32 @@ int	process(t_ms *ms)
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
 
+/**
+ * @brief The main function of the minishell program.
+ *
+ * @param argc The number of command line arguments.
+ * @param argv An array of strings representing the command line arguments.
+ * @param envp An array of strings representing the environment variables.
+ * @return 0 on successful execution.
+ * 
+ * Entry point of the minishell program.
+ * It initializes the `ms` structure with the env variables
+ * registers a signal handlers,
+ * enable command history
+ * binding the tab key for auto-completion
+ * loop and process user commands / user input
+ * continue to next iteration if input is wrong
+ * clear history and exit the program
+ * returns 0.
+ */
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
 
 	ms.env = envp;
 	if (argc != 1)
-		return (printf("Usage: ./mini_shell\n"), 1);
+		return (printf("ERROR! Use: ./mini_shell\n"), 1);
 	signal_handler();
 	using_history();
 	rl_bind_key('\t', rl_complete);
