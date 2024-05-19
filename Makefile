@@ -6,7 +6,7 @@
 #    By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/18 15:51:55 by sprodatu         ###   ########.fr        #
+#    Updated: 2024/05/18 16:03:21 by sprodatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT_DIR = libft
 SRCS = minishell.c \
 		signals/signal_handler.c \
 		parsing/parse.c parsing/lexing.c parsing/tokenizer.c parsing/tokenizer_helper.c \
-		parsing/commands.c \
+		parsing/commands.c parsing/syntax_check.c \
 		
 
 OBJS = $(SRCS:.c=.o)

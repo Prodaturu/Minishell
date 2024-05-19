@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/18 07:19:34 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:58:22 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
-typedef struct s_cmd
-{
-	char			**args;
-	struct s_cmd	*prev;
-	struct s_cmd	*next;
-	int				fd_in;
-	int				fd_out;
-	t_token			*token;
-}			t_cmd;
 
 // To store the type of token and its value
 // Example: ls | cat
@@ -69,6 +59,15 @@ typedef struct s_token
 	struct s_token	*prev;
 }			t_token;
 
+typedef struct s_cmd
+{
+	char			**args;
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+	int				fd_in;
+	int				fd_out;
+	t_token			*token;
+}			t_cmd;
 typedef struct s_ms
 {
 	pid_t	*pids;
@@ -93,6 +92,8 @@ typedef struct s_lex
 	int		sq;
 	int		dq;
 }		t_lex;
+
+void		print_commands(t_cmd* cmd);
 
 //: main functions: ---------------------
 

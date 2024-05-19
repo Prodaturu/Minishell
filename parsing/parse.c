@@ -6,11 +6,34 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/18 07:05:03 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:37:04 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	print_commands(t_cmd *cmd)
+{
+	t_cmd	*current;
+	int		i;
+
+	if (cmd == NULL)
+	{
+		printf("No commands to print.\n");
+		return ;
+	}
+	current = cmd;
+	while (current != NULL) {
+		printf("Command Arguments: ");
+		if (current->args != NULL) {
+			for (i = 0; current->args[i] != NULL; i++) {
+				printf("%s ", current->args[i]);
+			}
+		}
+		printf("\n----------------\n");
+		current = current->next;
+	}
+}
 
 void	free_tokens(t_token *token)
 {
@@ -38,12 +61,15 @@ int	parse(t_ms *ms)
 		return (free_tokens(ms->token), 0);
 	if (syntax_error(ms))
 		return (free_tokens(ms->token), 0);
+	printf("Syntax Error Done\n");
 	if (!commands(ms))
 		return (free_tokens(ms->token), 0);
-	if (!expander(ms))
-		return (free_tokens(ms->token), 0);
-	if (!redirections(ms))
-		return (free_tokens(ms->token), 0);
+	printf("Commands Done\n");
+	// print_commands(ms->cmd);
+	// if (!expander(ms))
+	// 	return (free_tokens(ms->token), 0);
+	// if (!redirections(ms))
+	// 	return (free_tokens(ms->token), 0);
 	return (free_tokens(ms->token), 1);
 }
 
