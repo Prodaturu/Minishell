@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 09:17:03 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:36:27 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
  * 
  * @param lexer The lexer object.
  * @return A pointer to created token, or NULL if malloc fails.
+ * 
+ * Allocate memory for the token.
+ * If token is NULL, return NULL.
+ * Set the type of the token to PIPE.
+ * Set the value of the token to "|".
+ * Increment the position.
+ * Return the token.
+ * 
+ * CHECKED & WORKING
  */
 
 t_token	*pipe_token(t_lex *lexer)
@@ -30,6 +39,26 @@ t_token	*pipe_token(t_lex *lexer)
 	token->value = ft_strdup("|");
 	return (lexer->pos++, token);
 }
+
+/**
+ * Handles the input token in the lexer.
+ * 
+ * @param lexer The lexer object.
+ * 
+ * @return A pointer to the created token.
+ * 
+ * Allocate memory for the token.
+ * If token is NULL, return NULL.
+ * If the next character is a less than sign
+ * 		set token type to H_DOC.
+ * 		Set the value of the token to "<<"
+ * Else set the type of the token to IN.
+ * 		Set the value of the token to "<".
+ * Increment the position.
+ * Return the token.
+ * 
+ * CHECKED & WORKING
+*/
 
 t_token	*in_token(t_lex *lexer)
 {
@@ -51,6 +80,26 @@ t_token	*in_token(t_lex *lexer)
 		return (lexer->pos++, token);
 	}
 }
+
+/**
+ * Handles the output token in the lexer.
+ * 
+ * @param lexer The lexer object.
+ * 
+ * @return A pointer to the created token.
+ * 
+ * Allocate memory for the token.
+ * If token is NULL, return NULL.
+ * If the next character is a greater than sign
+ * 		set token type to APPEND.
+ * 		Set the value of the token to ">>"
+ * Else set the type of the token to OUT.
+ * 		Set the value of the token to ">".
+ * Increment the position.
+ * Return the token.
+ * 
+ * CHECKED & WORKING
+*/
 
 t_token	*out_token(t_lex *lexer)
 {

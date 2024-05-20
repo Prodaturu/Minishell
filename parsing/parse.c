@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/18 19:37:04 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:45:37 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,29 @@ void	print_commands(t_cmd *cmd)
 void	free_tokens(t_token *token)
 {
 	t_token	*temp;
+	t_token	*temp2;
 
-	while (token)
+	temp = token;
+	while (temp != NULL)
 	{
-		temp = token->next;
-		free(token->value);
-		free(token);
-		token = temp;
+		temp2 = temp->next;
+		if (temp->value != NULL)
+			free(temp->value);
+		free(temp);
+		temp = temp2;
+	}
+}
+
+void	print_tokens(t_token *token)
+{
+	t_token	*temp;
+
+	temp = token;
+	while (temp)
+	{
+		printf("Token Type: %d\n", temp->type);
+		printf("Token Value: %s\n", temp->value);
+		temp = temp->next;
 	}
 }
 
@@ -61,16 +77,17 @@ int	parse(t_ms *ms)
 		return (free_tokens(ms->token), 0);
 	if (syntax_error(ms))
 		return (free_tokens(ms->token), 0);
-	printf("Syntax Error Done\n");
-	if (!commands(ms))
-		return (free_tokens(ms->token), 0);
-	printf("Commands Done\n");
+	// if (!commands(ms))
+	// 	return (free_tokens(ms->token), 0);
+	// printf("Commands Done\n");
 	// print_commands(ms->cmd);
 	// if (!expander(ms))
 	// 	return (free_tokens(ms->token), 0);
 	// if (!redirections(ms))
 	// 	return (free_tokens(ms->token), 0);
-	return (free_tokens(ms->token), 1);
+	free_tokens(ms->token);
+	printf("Free Tokens Done\n");
+	return (1);
 }
 
 // parse function:

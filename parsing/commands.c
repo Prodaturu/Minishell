@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 01:38:12 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/19 19:02:31 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:33:21 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	commands(t_ms *ms)
 	if (!create_cmds(token, &cmd))
 		return (0);
 	if (cmd == NULL)
-		return (1);
+		return (perror("ERROR! No commands"), 0);
 	ms->cmd = cmd;
 	return (1);
 }

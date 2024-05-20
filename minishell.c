@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/19 16:47:12 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:20:33 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	executor(t_ms *ms)
 int	wrong_input(char *input)
 {
 	if (!input)
-		return (1);
+		return (printf("ERROR! No input"), 0);
 	if (ft_strlen(input) == 0 || input[0] == '\0')
 		return (free(input), 1);
 	if (ft_strncmp(input, "clear", 5) == 0)
@@ -49,7 +49,7 @@ int	wrong_input(char *input)
 // 8. If input is "exit", free input, exit the program, return 1.
 // 9. else Return 0.
 
-// main function
+// main function (CHECKED AND WORKING)
 
 //! Add executor function after parser
 
@@ -60,7 +60,7 @@ int	process(t_ms *ms)
 	if (ms->input)
 		add_history(ms->input);
 	else
-		return (printf("\n"), 0);
+		return (0);
 	if (wrong_input(ms->input))
 		return (0);
 	if (!parse(ms))

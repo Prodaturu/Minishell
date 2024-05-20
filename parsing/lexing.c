@@ -6,11 +6,29 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/18 02:37:07 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:37:55 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/**
+ * @brief Initialize the lexer object.
+ * 
+ * @param ms The main structure.
+ * 
+ * @return The lexer object.
+ * 
+ * Allocate memory for the lexer object.
+ * If lexer is NULL, return NULL.
+ * Set the input of the lexer to the input string.
+ * Set the double quote flag to 0.
+ * Set the single quote flag to 0.
+ * Set the position to 0.
+ * Return the lexer object.
+ * 
+ * CHECKED & WORKING
+ */
 
 t_lex	*lexer_init(t_ms *ms)
 {
@@ -31,6 +49,17 @@ t_lex	*lexer_init(t_ms *ms)
  *
  * @param lexer The lexer object.
  * @return The next token.
+ * 
+ * Get the length of the input string.
+ * Loop until the position is less than the length of the input string.
+ * Get the current character.
+ * If the current character is a space, increment the position.
+ * Else if the current character is a pipe, return a pipe token.
+ * Else if the current character is a less than sign, return an in token.
+ * Else if the current character is a greater than sign, return an out token.
+ * Else return a word token.
+ * 
+ * CHECKED & WORKING
  */
 
 t_token	*get_token(t_lex *lexer)
@@ -69,28 +98,31 @@ t_token	*get_token(t_lex *lexer)
  * If the current character is a space, increment the position.
  * Else if the current character is a pipe, return a pipe token.
  * Else if the current character is a less than sign, return an in token.
+ * 
+ * CHECKED & WORKING
  */
 
 int	lexing(t_ms *ms)
 {
 	t_lex	*lexer;
+	t_token	*token;
 
 	lexer = lexer_init(ms);
-	if (!lexer || !lexer->input)
-		return (free(lexer), 0);
 	ms->token = get_token(lexer);
+	if (!lexer || !lexer->input || !ms->token)
+		return (0);
 	ms->token->prev = NULL;
-	ms->token->next = NULL;
-	while (ms->token->type != END)
+	token = ms->token;
+	while (token->type != END)
 	{
-		ms->token->next = get_token(lexer);
-		if (!ms->token->next)
+		token->next = get_token(lexer);
+		if (!token->next || token->type == ERR)
 		{
 			ms->exit_code = 258;
-			return (printf("Syntax Error!\tunclosed quotes"), free(lexer), 0);
+			return (perror("Error! unclosed quotes\n"), free(lexer), 0);
 		}
-		ms->token->next->prev = ms->token;
-		ms->token = ms->token->next;
+		token->next->prev = token;
+		token = token->next;
 	}
 	return (free(lexer), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 05:39:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/19 17:12:29 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 04:28:44 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@
 
 int	redir_error_check(t_token *token)
 {
-	if (token->next == NULL || token->next->type == IN
-		|| token->next->type == H_DOC || token->next->type == OUT
-		|| token->next->type == APPEND)
-		return (printf("ERROR! unexpected token `%s'\n", token->value), 1);
-	else if (token->prev == NULL)
-		return (printf("ERROR! unexpected token `%s'\n", token->value), 1);
-	else if (token->prev->type != WORD)
-		return (printf("ERROR! unexpected token `%s'\n", token->value), 1);
+	if (token->next->type != WORD)
+	{
+		ft_putstr_fd("ERROR! unexpected token `", 2);
+		ft_putstr_fd(token->value, 2);
+		ft_putstr_fd("'\n", 2);
+		return (1);
+	}
 	return (0);
 }
 
@@ -51,14 +50,9 @@ int	redir_error_check(t_token *token)
 
 int	pipe_error_check(t_token *token)
 {
-	if (token->next == NULL || token->next->type == PIPE)
-		return (printf("syntax error near unexpected token `|'\n"), 1);
-	else if (token->prev == NULL)
-		return (printf("syntax error near unexpected token `|'\n"), 1);
-	else if (token->prev->type == PIPE)
-		return (printf("syntax error near unexpected token `|'\n"), 1);
-	else if (token->prev->type != WORD)
-		return (printf("syntax error near unexpected token `|'\n"), 1);
+	if (token->next == NULL || (token->next && token->next->type == END)
+		|| token->prev == NULL || token->prev->type != WORD)
+		return (ft_putstr_fd("ERROR! unexpected token `|'\n", 2), 1);
 	return (0);
 }
 
@@ -78,30 +72,24 @@ int	pipe_error_check(t_token *token)
 
 int	syntax_error(t_ms *ms)
 {
-	int	exit_code;
+	t_token	*token;
 
-	while (ms->token)
+	token = ms->token;
+	while (token)
 	{
-		if (ms->token->type == PIPE)
+		if (token->type == PIPE && pipe_error_check(token))
 		{
-			exit_code = pipe_error_check(ms->token);
-			if (exit_code != 0)
-			{
-				ms->exit_code = exit_code;
-				return (exit_code);
-			}
+			ms->exit_code = 258;
+			return (1);
 		}
-		if (ms->token->type == IN || ms->token->type == H_DOC
-			|| ms->token->type == OUT || ms->token->type == APPEND)
+		else if (token->type == IN || token->type == H_DOC
+			|| token->type == OUT || token->type == APPEND
+			&& (redir_error_check(token)) && token->type != WORD)
 		{
-			exit_code = redir_error_check(ms->token);
-			if (exit_code != 0)
-			{
-				ms->exit_code = exit_code;
-				return (exit_code);
-			}
+			ms->exit_code = 258;
+			return (1);
 		}
-		ms->token = ms->token->next;
+		token = token->next;
 	}
 	return (0);
 }
