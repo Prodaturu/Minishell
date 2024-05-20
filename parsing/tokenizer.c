@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 01:36:27 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 08:19:16 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ t_token	*eof_token(void)
 	if (!token)
 		return (NULL);
 	token->type = END;
-	token->value = "EOF";
+	token->value = NULL;
 	token->next = NULL;
 	return (token);
 }

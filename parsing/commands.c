@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 01:38:12 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/19 20:33:21 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 07:32:37 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	new_cmd(t_cmd **prev, t_token **token, t_cmd **cmd)
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (perror("ERROR! malloc fail"), 0);
+	new->prev = *prev;
 	new->args = NULL;
 	new->next = NULL;
 	new->fd_in = STDIN_FILENO;
@@ -28,7 +29,7 @@ int	new_cmd(t_cmd **prev, t_token **token, t_cmd **cmd)
 	if (!*cmd)
 		*cmd = new;
 	*prev = new;
-	if ((*token)->prev->type != PIPE || (*token)->prev == NULL)
+	if ((*token)->prev && (*token)->prev->type != PIPE)
 		*token = (*token)->next;
 	return (1);
 }
@@ -40,19 +41,19 @@ int	create_cmds(t_token *token, t_cmd **cmds)
 	cmd = NULL;
 	while (token->type != END)
 	{
-		if (token->prev == NULL || token->prev->type == PIPE)
-			if (!new_cmd(&cmd, &token, cmds))
-				return (0);
-		if (token->type != PIPE)
-		{
-			if (!get_args(&token, cmd))
-				return (0);
-		}
+		if ((token->prev == NULL || token->prev->type == PIPE)
+			&& !new_cmd(&cmd, &token, cmds))
+			return (0);
+		else if (token->type != PIPE && !get_args(&token, cmd))
+			return (0);
 		else if (token->type == PIPE)
 			token = token->next;
 	}
 	return (1);
 }
+
+/**
+*/
 
 int	commands(t_ms *ms)
 {
@@ -64,7 +65,7 @@ int	commands(t_ms *ms)
 	if (!create_cmds(token, &cmd))
 		return (0);
 	if (cmd == NULL)
-		return (perror("ERROR! No commands"), 0);
+		return (1);
 	ms->cmd = cmd;
 	return (1);
 }

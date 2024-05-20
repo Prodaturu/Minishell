@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 05:39:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 04:46:31 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 08:09:05 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int	syntax_error(t_ms *ms)
 			ms->exit_code = 258;
 			return (1);
 		}
-		else if (token->type == IN || token->type == H_DOC
-			|| token->type == OUT || token->type == APPEND
-			&& (redir_error_check(token)) && token->type != WORD)
+		else if ((token->type == IN || token->type == H_DOC
+				|| token->type == OUT || token->type == APPEND)
+			&& redir_error_check(token) && token->type != WORD)
 		{
 			ms->exit_code = 258;
 			return (1);

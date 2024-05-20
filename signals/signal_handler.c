@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:08:46 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/12 21:45:46 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 08:31:35 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	sigquit_handler(int signum)
 	(void) signum;
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
 }
+
+	// rl_replace_line("", 0);
 
 void	sigquits_handler(void)
 {
@@ -66,6 +67,7 @@ void	sigquits_handler(void)
 
 void	signal_handler(void)
 {
+	rl_catch_signals = 0;
 	sigquits_handler();
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
