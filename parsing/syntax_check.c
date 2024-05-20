@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 05:39:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 04:28:44 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/20 04:46:31 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
  * 
  * @return 1 if redirection error is found, 0 otherwise.
  * 
- * If token is NULL or a redirection, print err msg & return 1.
- * If token is the first token, print err msg & return 1.
- * If token is not a WORD, print err msg & return 1.
+ * If next token is not a WORD,
+ * 		print err msg & return 1.
+ * else return 0.
 */
 
 int	redir_error_check(t_token *token)
 {
-	if (token->next->type != WORD)
+	if (!token->next || token->next->type != WORD)
 	{
 		ft_putstr_fd("ERROR! unexpected token `", 2);
 		ft_putstr_fd(token->value, 2);
@@ -43,14 +43,18 @@ int	redir_error_check(t_token *token)
  * 
  * @return 1 if redirection error is found, 0 otherwise.
  * 
- * If token is NULL or a pipe, print err msg & return 1.
- * If token is the first token, print err msg & return 1.
- * If token is not a WORD, print err msg & return 1.
+ * If next token is NULL or a pipe or end,
+ * If token is the first token i.e prev is NULL or
+ * If prev token is not a WORD
+ * 		print err msg & return 1.
+ * else return 0.
+ * 
+ * CHECKED & WORKING
 */
 
 int	pipe_error_check(t_token *token)
 {
-	if (token->next == NULL || (token->next && token->next->type == END)
+	if (token->next == NULL || token->next->type == END
 		|| token->prev == NULL || token->prev->type != WORD)
 		return (ft_putstr_fd("ERROR! unexpected token `|'\n", 2), 1);
 	return (0);
@@ -63,11 +67,15 @@ int	pipe_error_check(t_token *token)
  * 
  * @return 1 if syntax error is found, 0 otherwise.
  *
- * Checks in a loop while token is not NULL.
- * 		If token type is PIPE, check for pipe error.
- * 		If token type is IN, H_DOC, OUT, or APPEND, check for redir error.
- * 		return the result of the error check.
- * else return 0.
+ * Loop through the tokens.
+ * If token is a pipe and pipe error is found,
+ * 		set exit code to 258 & return 1.
+ * If token is a redirection and redirection error is found,
+ * 		set exit code to 258 & return 1.
+ * 	Both the above conditions print an custom error message.
+ * Return 0.
+ * 
+ * CHECKED & WORKING
  */
 
 int	syntax_error(t_ms *ms)
