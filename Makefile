@@ -6,7 +6,7 @@
 #    By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/19 19:15:33 by sprodatu         ###   ########.fr        #
+#    Updated: 2024/05/25 21:31:15 by sprodatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -L./libft -lft -lreadline
 
 LIBFT = libft/libft.a
@@ -25,6 +25,7 @@ SRCS = minishell.c \
 		signals/signal_handler.c \
 		parsing/parse.c parsing/lexing.c parsing/tokenizer.c parsing/tokenizer_helper.c \
 		parsing/commands.c parsing/commands_helper.c parsing/syntax_check.c \
+		parsing/expand.c parsing/expand_helper.c \
 		
 
 OBJS = $(SRCS:.c=.o)

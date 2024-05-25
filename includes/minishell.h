@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/19 19:15:03 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/25 21:40:21 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_lex
 	int		dq;
 }		t_lex;
 
-void		print_commands(t_cmd* cmd);
+void		print_commands(t_cmd *cmd);
 
 //: main functions: ---------------------
 
@@ -117,6 +117,7 @@ t_token		*eof_token(void);
 t_token		*word_token_value(int start, t_lex *lex);
 void		quote_token_value(t_lex *lex, char quote);
 t_token		*unclosed_quote_token(void);
+t_token		*empty_quotes_token(void);
 
 //: Syntax check functions:
 
@@ -129,5 +130,14 @@ int			commands(t_ms *ms);
 int			get_args(t_token **token, t_cmd *cmd);
 int			fill_arg_array(int i, t_cmd **cmd, t_token **token);
 char		*redirect_to_str(t_token *token);
+
+//: expand functions:
+void		expand(t_ms *ms);
+void		remove_element(char ***arr_ptr, int index);
+int			check_expander(char **s, t_ms *ms, int *s_flag);
+void		free_replace_args(char ***args, int *n, int *splits);
+
+//: expand_helper functions:
+void		handle_string_exp(char **s, char **exp_s, t_ms *ms, int *sf);
 
 #endif

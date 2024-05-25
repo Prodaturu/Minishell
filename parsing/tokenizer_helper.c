@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/17 15:59:39 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/25 03:52:03 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,29 @@ void	quote_token_value(t_lex *l, char q)
 {
 	if (q == '\'' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
 		l->sq = 1;
-	else if (q == '\'' && l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+	else if (q == '\'' && l->sq && !l->dq && (l->input[l->pos - 1] != '\\' || l->input[l->pos + 1] == '\''))
 		l->sq = 0;
 	else if (q == '\"' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
 		l->dq = 1;
-	else if (q == '\"' && !l->sq && l->dq && l->input[l->pos - 1] != '\\')
+	else if (q == '\"' && !l->sq && l->dq && (l->input[l->pos - 1] != '\\' || l->input[l->pos + 1] == '\"'))
 		l->dq = 0;
 	l->pos++;
 }
+
+// void	quote_token_value(t_lex *l, char q)
+// {
+// 	if (q == '\'' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 		l->sq = 1;
+// 	else if (q == '\'' && l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 		l->sq = 0;
+// 	else if (q == '\"' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 	{
+// 		l->dq = 1;
+// 	}
+// 	else if (q == '\"' && !l->sq && l->dq && l->input[l->pos - 1] != '\\')
+// 		l->dq = 0;
+// 	l->pos++;
+// }
 
 /**
  * @brief Creates an unclosed quote token.
@@ -111,6 +126,7 @@ t_token	*unclosed_quote_token(void)
 	if (!token)
 		return (NULL);
 	token->type = ERR;
+	printf("ERROR: Unclosed quote----------\n");
 	token->value = ft_strdup("Unclosed quote");
 	token->next = NULL;
 	return (token);

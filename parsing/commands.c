@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 01:38:12 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 07:32:37 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/23 03:03:36 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,25 @@ int	create_cmds(t_token *token, t_cmd **cmds)
 }
 
 /**
+ * commands function:
+ * 
+ * @brief Gets the commands from the tokens
+ * 
+ * @param ms
+ * 
+ * @return int
+ * 
+ * Takes the token address from the ms struct
+ * and creates a linked list of commands 
+ * 		using create_cmds function
+ * 		which takes token & address of the command list as arguments
+ * If the create_cmds function returns 0, return 0
+ * If the command list is not empty,
+ * 		set the command list in the ms struct to the new command list
+ * 		which is created by the create_cmds function
+ * return 1
+ * 
+ * @note: 
 */
 
 int	commands(t_ms *ms)
@@ -64,9 +83,8 @@ int	commands(t_ms *ms)
 	token = ms->token;
 	if (!create_cmds(token, &cmd))
 		return (0);
-	if (cmd == NULL)
-		return (1);
-	ms->cmd = cmd;
+	if (cmd != NULL)
+		ms->cmd = cmd;
 	return (1);
 }
 

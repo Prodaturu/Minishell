@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 01:37:55 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:48:37 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ t_token	*get_token(t_lex *lexer)
 			return (in_token(lexer));
 		else if (current_char == '>')
 			return (out_token(lexer));
+		else if ((current_char == '\'' || current_char == '"' )
+			&& lexer->input[lexer->pos + 1] == current_char)
+			return (lexer->pos++, lexer->pos++, empty_quotes_token());
 		else
 			return (word_token(lexer));
 	}
@@ -108,8 +111,10 @@ int	lexing(t_ms *ms)
 	t_token	*token;
 
 	lexer = lexer_init(ms);
+	if (!lexer || !lexer->input)
+		return (0);
 	ms->token = get_token(lexer);
-	if (!lexer || !lexer->input || !ms->token)
+	if (!ms->token)
 		return (0);
 	ms->token->prev = NULL;
 	token = ms->token;
@@ -119,7 +124,8 @@ int	lexing(t_ms *ms)
 		if (!token->next || token->type == ERR)
 		{
 			ms->exit_code = 258;
-			return (perror("Error! unclosed quotes\n"), free(lexer), 0);
+			ft_putstr_fd("Error! unclosed quotes\n", 2);
+			return (free(lexer), 0);
 		}
 		token->next->prev = token;
 		token = token->next;

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 08:39:50 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/25 18:10:30 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@ void	print_commands(t_cmd *cmd)
 	t_cmd	*current;
 	int		i;
 
+	i = 0;
 	if (cmd == NULL)
 	{
 		printf("No commands to print.\n");
 		return ;
 	}
 	current = cmd;
-	while (current != NULL) {
+	while (current != NULL)
+	{
 		printf("Command Arguments: ");
-		if (current->args != NULL) {
-			for (i = 0; current->args[i] != NULL; i++) {
-				printf("%s ", current->args[i]);
+		if (current->args != NULL)
+		{
+			while (current->args[i] != NULL)
+			{
+				printf("argument ->|--:%s:--|\n", current->args[i]);
+				i++;
 			}
 		}
 		printf("\n----------------\n");
@@ -75,21 +80,19 @@ int	parse(t_ms *ms)
 {
 	if (!lexing(ms))
 		return (free_tokens(ms->token), 0);
-	printf("Lexing Done\n");
 	if (syntax_error(ms))
 		return (free_tokens(ms->token), 0);
-	printf("syntax Done\n");
 	if (!commands(ms))
 		return (free_tokens(ms->token), 0);
-	printf("Commands Done\n");
+	expand(ms);
 	print_commands(ms->cmd);
-	if (!expander(ms))
-		return (free_tokens(ms->token), 0);
+	return (1);
+}
+
+	// expand(ms);
 	// if (!redirections(ms))
 	// 	return (free_tokens(ms->token), 0);
 	// free_tokens(ms->token);
-	return (1);
-}
 
 // parse function:
 // 1. Call lexing function.

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/20 08:19:16 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/25 03:29:11 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,18 @@ t_token	*out_token(t_lex *lexer)
 	}
 }
 
+t_token	*empty_quotes_token(void)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = WORD;
+	token->value = ft_strdup("");
+	return (token);
+}
+
 /**
  * Handles a word token in the lexer.
  *
@@ -148,7 +160,9 @@ t_token	*word_token(t_lex *lex)
 			break ;
 		lex->pos++;
 	}
-	if (lex->dq || lex->sq)
+	// if (lex->input[lex->pos] != lex->input[lex->pos - 1])
+	// 	return (empty_quotes_token());
+	if ((lex->dq || lex->sq))
 		return (unclosed_quote_token());
 	return (word_token_value(start, lex));
 }
