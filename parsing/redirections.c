@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:50:16 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 03:30:12 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:45:15 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ int	handle_redirection_helper(t_ms *mini, t_cmd *cmd, int *i)
 	if (cmd->args[*i][0] == '<')
 	{
 		if (!handle_redirection_in(mini, cmd, i))
-		{
-			remove_args(cmd);
-			return (0);
-		}
+			return (remove_args(cmd), 0);
 	}
 	else if (cmd->args[*i][0] == '>')
 	{
