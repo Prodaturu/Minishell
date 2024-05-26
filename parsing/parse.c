@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 06:29:15 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 09:45:49 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_commands(t_cmd *cmd)
 				i++;
 			}
 		}
-		printf("\nprint commands done\n");
+		printf("\ncommands done\n");
 		current = current->next;
 	}
 }
