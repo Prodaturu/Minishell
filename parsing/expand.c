@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 07:59:27 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 08:26:31 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	expand(t_ms *ms)
 	int		s_flag;
 
 	temp = ms->cmd;
+	printf("ms->cmd[0] is %s\n", ms->cmd->args[0]);
+	printf("ms->cmd[1] is %s\n", ms->cmd->args[1]);
 	while (ms->cmd)
 	{
 		i = 0;

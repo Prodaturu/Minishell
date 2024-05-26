@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 07:59:51 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 08:25:24 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
+	ft_putendl_fd("Parsing done", 1);
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
 
