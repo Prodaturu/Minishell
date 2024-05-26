@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 07:00:09 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 07:59:27 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	expand(t_ms *ms)
 	{
 		i = 0;
 		s_flag = 0;
-		printf("cmd->args: %s\n", ms->cmd->args[i]);
 		while (ms->cmd->args && ms->cmd->args[i])
 		{
 			if (check_and_expand(&ms->cmd->args[i], ms, &s_flag))
