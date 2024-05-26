@@ -6,7 +6,7 @@
 #    By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/26 09:55:45 by trosinsk         ###   ########.fr        #
+#    Updated: 2024/05/26 20:36:50 by trosinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ $(LIBFT):
 	
 clean:
 	rm -f $(OBJS) $(LIBFT_DIR)/*.o
+	@make -C $(LIBFT_DIR) fclean
 	
 fclean: clean
 	rm -f $(NAME)

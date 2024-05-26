@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 22:28:42 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:47:55 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:10:06 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,10 @@ void	ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms)
 	int	i;
 	int	j;
 	int	msg_flag;
-	int	digit_flag;
 
 	i = 1;
 	j = 0;
 	msg_flag = 0;
-	digit_flag = 0;
 	while (cmd[i] && msg_flag != 2)
 	{
 		if (!cmd[1])

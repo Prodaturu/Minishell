@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:55:36 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:51:37 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:08:56 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ void	pipes_process(int **fds, int i, t_ms *mini, int ncmd)
 
 void	performer(t_ms *mini, int **fds, int ncmd)
 {
-	t_cmd	*cmd;
 	int		i;
 
 	i = 0;
-	cmd = mini->cmd;
 	while (mini->cmd)
 	{
 		g_signal = 1;

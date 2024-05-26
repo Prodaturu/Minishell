@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:39:42 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:48:02 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:11:15 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 void	unset_1st(t_env **env_s, t_ms *ms)
 {
 	t_env	*tmp;
-	t_env	*prev;
 	t_env	*node_to_free;
 
 	if (!env_s || !*env_s)
 		return ;
 	tmp = *env_s;
-	prev = NULL;
 	free(tmp->env_value);
 	free(tmp->env_name);
 	if (tmp->next)

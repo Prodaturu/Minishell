@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 00:00:35 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 06:57:42 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:07:56 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ char	*ft_strnjoin(char *s1, const char *s2, size_t n)
 {
 	char	*str;
 	size_t	len1;
-	size_t	len2;
 
 	if (!s1 && !s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
 	str = (char *)malloc((len1 + n + 1) * sizeof(char));
 	if (!str)
 		return (NULL);

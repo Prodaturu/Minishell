@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 09:56:46 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:07:21 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	replace_and_free_args(char ***args, int *n, int *s_flag)
 	*s_flag = 0;
 	temp = (*args)[*n];
 	split_args = ft_split(temp, ' ');
-	free(temp);
 	if (!split_args)
 		return ;
 	new_args = allocate_new_args(*args, temp, split_args, n);
@@ -64,6 +63,7 @@ void	replace_and_free_args(char ***args, int *n, int *s_flag)
 		free(split_args);
 		return ;
 	}
+	free(temp);
 	free(*args);
 	free(split_args);
 	*args = new_args;
