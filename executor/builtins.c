@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:46:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:49:00 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:48:20 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,22 @@ t_builtin	*get_bt(void)
 void	exec_builtin(char **argv, t_env **env, t_ms *mini)
 {
 	t_builtin	*bt;
-	char		**temp;
+	char		*temp;
 	int			i;
 
 	i = 0;
-	temp = ft_calloc(100, MAX_PATH_LENGTH);
-	while (argv[i] != NULL)
-	{
-		temp[i] = ft_strdup(argv[i]);
-		i++;
-	}
+	temp = ft_strdup(argv[0]);
 	bt = get_bt();
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strcmp(temp[0], bt->inbuilt[i].name) == 0)
+		if (ft_strcmp(temp, bt->inbuilt[i].name) == 0)
 		{
 			bt->inbuilt[i].ft(argv, env, mini);
+			free(temp);
 			return ;
 		}
 		i++;
 	}
+	free(temp);
 }

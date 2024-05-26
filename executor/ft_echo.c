@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:22:14 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:47:48 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:33:16 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_echo(char **str, int n_flag, int i, t_ms *ms)
 		printf("\n");
 	ms->exit_code = 0;
 }
-//add -n flag to skip \n printing
 
 void	ft_echo_prep(char **cmd, t_env **env_s, t_ms *ms)
 {
@@ -50,9 +49,11 @@ void	ft_echo_prep(char **cmd, t_env **env_s, t_ms *ms)
 		{
 			i = 2;
 			if (str[j] == '\0')
+			free(str);
 				break ;
 			j++;
 		}
+		free(str);
 		n_flag = 1;
 	}
 	ft_echo(cmd, n_flag, i, ms);

@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 19:36:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:49:24 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:07:28 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_execve(t_cmd *cmd, t_env **env_s, t_ms *mini)
 		ft_putstr_fd("minishel: ", 2);
 		ft_putstr_fd(cmd->args[0], 2);
 		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(strerror(errno), 2);
+		ft_putendl_fd("command not found", 2);
 		free_struct(env_s);
 		exit(127);
 	}

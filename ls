@@ -1,0 +1,14 @@
+Makefile
+a.out
+executor
+file
+file2
+hi
+includes
+libft
+ls
+minishell
+minishell.c
+minishell.o
+parsing
+signals

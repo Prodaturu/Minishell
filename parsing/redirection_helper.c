@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:52:27 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 01:52:56 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:06:34 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	check_if_file_exits(t_ms *mini, char *path)
 				mini->exit_code = 126;
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(path, 2);
-				ft_putstr_fd(": Permission denied\n", 2);
+				ft_putstr_fd(": Permission denied \n", 2);
 				return (1);
 			}
 		}
