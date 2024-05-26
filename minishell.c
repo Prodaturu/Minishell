@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 09:56:29 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:02:04 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
+	ft_putendl_fd("Parsing done", 1);
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
 // print_commands(ms->cmd);
