@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+         #
+#    By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/26 23:51:37 by trosinsk         ###   ########.fr        #
+#    Updated: 2024/05/27 01:25:56 by sprodatu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,5 +68,7 @@ fclean: clean
 	@make -sC $(LIBFT_DIR) fclean
 
 re: fclean all
+
+ac: all clean
 
 .PHONY: all clean fclean re
