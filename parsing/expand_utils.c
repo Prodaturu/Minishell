@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 20:41:05 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 00:05:54 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
 		ep = *i;
 	}
 	temp = ft_substr(str, sp, ep - sp);
-	expansion = get_env(temp, ms->env); //change to ms_env_s
-	free(temp);
+	expansion = get_env(temp, ms->env);
 	if (!expansion)
 		return (0);
 	*ex_str = ft_strnjoin(*ex_str, expansion, ft_strlen(expansion));
+	ft_setenv(temp, expansion, 1, ms->env_s);
+	free(temp);
 	return (1);
 }
 

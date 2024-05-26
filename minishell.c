@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 10:02:04 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/27 00:16:39 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,24 @@ int	g_signal = 0;
 
 void	free_commands(t_ms *ms)
 {
-	(void) (*ms);
+	t_cmd	*tmp;
+	// t_env	*tmp_env;
+
+	while (ms->cmd)
+	{
+		tmp = ms->cmd->next;
+		free(ms->cmd->args);
+		free(ms->cmd);
+		ms->cmd = tmp;
+	}
+// 	while (ms->env_s)
+// 	{
+// 		tmp_env = ms->env_s->next;
+// 		free(ms->env_s->env_name);
+// 		free(ms->env_s->env_value);
+// 		free(ms->env_s);
+// 		ms->env_s = tmp_env;
+// 	}
 }
 
 int	wrong_input(char *input)
@@ -33,21 +50,6 @@ int	wrong_input(char *input)
 	return (0);
 }
 
-// wrong_input function:
-// 1. Check if input is NULL.
-// 2. If input is NULL, return 1.
-// 3. Check if length of input is 0.
-// 4. If length of input is 0, free input, return 1.
-// 5. Check if the input is "clear".
-// 6. If input is "clear", clear the screen, free input, return 1.
-// 7. Check if the input is "exit".
-// 8. If input is "exit", free input, exit the program, return 1.
-// 9. else Return 0.
-
-// main function (CHECKED AND WORKING)
-
-//! Add executor function after parser
-
 int	process(t_ms *ms)
 {
 	g_signal = 0;
@@ -60,10 +62,8 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
-	ft_putendl_fd("Parsing done", 1);
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
-// print_commands(ms->cmd);
 
 int	main(int argc, char **argv, char **envp)
 {

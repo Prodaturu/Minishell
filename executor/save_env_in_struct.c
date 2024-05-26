@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 19:27:16 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:46:32 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:52:13 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ t_env	*save_env(char **env, t_env *env_struct)
 		if (env_split[0] && !env_split[1])
 			env_split[1] = "";
 		append_node(&env_struct, env_split[0], env_split[1]);
+		// free(env_split[0]);
+		// free(env_split[1]);
 		i++;
 	}
 	return (env_struct);

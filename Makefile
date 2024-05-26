@@ -6,7 +6,7 @@
 #    By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/26 20:43:15 by trosinsk         ###   ########.fr        #
+#    Updated: 2024/05/26 23:51:37 by trosinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS = -L./libft -lft -lreadline
 
 LIBFT = libft/libft.a
@@ -47,23 +47,25 @@ SRCS = minishell.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@echo "Making Libft..."
+	make -sC $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	
 clean:
 	rm -f $(OBJS) $(LIBFT_DIR)/*.o
-	@make -C $(LIBFT_DIR) fclean
+	@make -sC $(LIBFT_DIR) clean
 	
 fclean: clean
 	rm -f $(NAME)
+	@make -sC $(LIBFT_DIR) fclean
 
 re: fclean all
 
