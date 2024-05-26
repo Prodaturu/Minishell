@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:58:51 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 06:33:14 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/26 08:01:17 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void	executor(t_ms *mini)
 		wait_pids(mini, ncmd);
 	}
 	exec_free(mini, ncmd, fds);
+	printf("Yeah baby\n");
 }
