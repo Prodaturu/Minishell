@@ -6,11 +6,30 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/25 03:52:03 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 05:04:29 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/**
+ * Creates and returns a new token representing the end of file (EOF).
+ *
+ * @return pointer to the newly created token, NULL if malloc fails.
+ */
+
+t_token	*eof_token(void)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->type = END;
+	token->value = NULL;
+	token->next = NULL;
+	return (token);
+}
 
 /**
  * Creates a word token with the specified value.
@@ -80,16 +99,27 @@ t_token	*word_token_value(int start, t_lex *lex)
 
 void	quote_token_value(t_lex *l, char q)
 {
-	if (q == '\'' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+	if (q == '\'' && !l->sq && !l->dq)
 		l->sq = 1;
-	else if (q == '\'' && l->sq && !l->dq && (l->input[l->pos - 1] != '\\' || l->input[l->pos + 1] == '\''))
+	else if (q == '\'' && l->sq && !l->dq
+		&& (l->input[l->pos + 1] == '\''))
 		l->sq = 0;
-	else if (q == '\"' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+	else if (q == '\"' && !l->sq && !l->dq)
 		l->dq = 1;
-	else if (q == '\"' && !l->sq && l->dq && (l->input[l->pos - 1] != '\\' || l->input[l->pos + 1] == '\"'))
+	else if (q == '\"' && !l->sq && l->dq
+		&& (l->input[l->pos] == '\"'))
 		l->dq = 0;
-	l->pos++;
 }
+
+// if (q == '\'' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 		l->sq = 1;
+// 	else if (q == '\'' && l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 		l->sq = 0;
+// 	else if (q == '\"' && !l->sq && !l->dq && l->input[l->pos - 1] != '\\')
+// 		l->dq = 1;
+// 	else if (q == '\"' && !l->sq && l->dq && l->input[l->pos - 1] != '\\')
+// 		l->dq = 0;
+// 	l->pos++;
 
 // void	quote_token_value(t_lex *l, char q)
 // {

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 22:47:05 by sprodatu          #+#    #+#             */
-/*   Updated: 2023/10/11 19:16:49 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 03:50:40 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (s == '\0')
+		return (0);
 	i = 0;
 	while (*s != '\0')
 	{

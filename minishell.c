@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/21 02:01:03 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 03:24:34 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,48 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 	return (clear_history(), (void)argv, (void)argc, 0);
 }
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <readline/readline.h>
+// #include <readline/history.h>
+
+// int main(int argc, char **argv, char **envp)
+// {
+//     t_ms ms;
+
+//     ms.env = envp;
+//     if (argc != 1)
+//         return printf("ERROR! Use: ./mini_shell\n"), 1;
+
+//     signal_handler();
+//     using_history();
+//     rl_bind_key('\t', rl_complete);
+
+//     // Add a test command to set a variable
+// 	system("export TEST_VAR=test_value").
+
+//     // Prompt loop
+//     while (1)
+//     {
+//         char *input = readline("$ "); // Prompt user for input
+//         if (!input)
+//             break; // Break the loop if input is NULL (usually EOF or Ctrl+D)
+
+//         // Process the input command
+//         process(&ms);
+
+//         // Free the input buffer
+//         free(input);
+//     }
+
+//     // Test the expanded variable using system echo
+//     system("echo $TEST_VAR");
+
+//     // Clear history and return
+//     return (clear_history(), (void)argv, (void)argc, 0);
+// }
+
 
 // main logic:
 // 1. Initialize the minishell structure.

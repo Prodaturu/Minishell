@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/25 21:40:21 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 03:18:12 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,50 @@ int			fill_arg_array(int i, t_cmd **cmd, t_token **token);
 char		*redirect_to_str(t_token *token);
 
 //: expand functions:
-void		expand(t_ms *ms);
 void		remove_element(char ***arr_ptr, int index);
-int			check_expander(char **s, t_ms *ms, int *s_flag);
-void		free_replace_args(char ***args, int *n, int *splits);
+void		expand(t_ms *ms);
+char		*get_env(const char *name, char **env);
+char		*ft_strnjoin(char *s1, const char *s2, size_t n);
+void		ft_strnjoin_helper(char *dest, const char *src, size_t n);
+int			handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms);
+int			expand_and_join(char *str, int *i, char **ex_str, t_ms *ms);
+int			handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms);
+int			handle_squotes(char *str, int *i, char **ex_str);
+void		replace_and_free_args(char ***args, int *n, int *s_flag);
+int			handle_expansion(char *str, int *i, char **ex_str, t_ms *ms);
+int			check_and_expand(char **s, t_ms *ms, int *s_flag);
+void		expand(t_ms *ms);
 
-//: expand_helper functions:
-void		handle_string_exp(char **s, char **exp_s, t_ms *ms, int *sf);
+//: redrection functions:
+void		handle_redirection(t_ms *mini);
+void		heredoc(int fd, char *del, t_ms *mini);
+void		remove_cmd_node(t_ms *mini, t_cmd *node_to_remove);
+void		print_cmds(t_ms *mini);
+int			check_if_file_exits(t_ms *mini, char *path);
+int			check_file(char *path);
+int			set_fd(char *re, char *path, t_cmd *cmd, t_ms *mini);
+char		*ft_strnjoin(char *s1, const char *s2, size_t n);
+char		*get_env(const char *name, char **env);
+int			ft_strcmp(const char *s1, const char *s2);
+
+// int			handle_quotes(char *str, int *i, char **ex_str);
+// void		check_and_ex_helper(char *str, char **es, t_ms *ms, int *sf);
+// void		replace_and_free_args(char ***args, int *n, int *s_flag);
+// int			check_and_expand(char **s, t_ms *ms, int *s_flag);
+// int			expand(t_ms *ms);
+
+// //: expand_utils functions:
+// void		merge_helper(char **new, char ***array1, char **array2, int *i);
+// void		merge_arrays(char ***new_array, char **array1, int *i);
+// char		*ft_strnjoin(char *s1, char *s2, int n);
+// char		*get_env(const char *name, char **env);
+// void		print_cmds(t_ms *mini);
+
+// //: expand_utils_helper functions:
+// void		remove_element(char ***array_ptr, int index);
+// int			handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *m);
+// int			expand_and_join(char *str, int *i, char **ex_str, t_ms *mini);
+// int			handle_dquotes(char *str, int *i, char **ex_str, t_ms *m);
+// int			handle_expansion(char *str, int *i, char **ex_str, t_ms *mini);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 06:45:45 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/25 03:29:11 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 04:27:51 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,28 +160,7 @@ t_token	*word_token(t_lex *lex)
 			break ;
 		lex->pos++;
 	}
-	// if (lex->input[lex->pos] != lex->input[lex->pos - 1])
-	// 	return (empty_quotes_token());
 	if ((lex->dq || lex->sq))
 		return (unclosed_quote_token());
 	return (word_token_value(start, lex));
-}
-
-/**
- * Creates and returns a new token representing the end of file (EOF).
- *
- * @return pointer to the newly created token, NULL if malloc fails.
- */
-
-t_token	*eof_token(void)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	token->type = END;
-	token->value = NULL;
-	token->next = NULL;
-	return (token);
 }
