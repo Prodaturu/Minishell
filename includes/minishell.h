@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 03:18:12 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 07:00:30 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define MAX_PATH_LENGTH 1024
+
+extern int	g_signal;
 
 // To store the type of token and its value
 // Example: ls | cat
@@ -54,36 +58,38 @@ typedef enum s_type
 typedef struct s_token
 {
 	t_type			type;
-	char			*value;
 	struct s_token	*next;
 	struct s_token	*prev;
+	char			*value;
 }			t_token;
 
 typedef struct s_cmd
 {
-	char			**args;
+	t_token			*token;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 	int				fd_in;
 	int				fd_out;
-	t_token			*token;
+	char			**args;
 }			t_cmd;
-typedef struct s_ms
-{
-	pid_t	*pids;
-	char	*input;
-	t_token	*token;
-	char	**env;
-	t_cmd	*cmd;
-	int		exit_code;
-}		t_ms;
 
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
 	struct s_env	*next;
-}			t_env;
+	char			*env_name;
+	char			*env_value;
+}	t_env;
+
+typedef struct s_ms
+{
+	t_token	*token;
+	t_cmd	*cmd;
+	t_env	*env_s;
+	pid_t	*pids;
+	int		exit_code;
+	char	*input;
+	char	**env;
+}		t_ms;
 
 typedef struct s_lex
 {
@@ -92,6 +98,17 @@ typedef struct s_lex
 	int		sq;
 	int		dq;
 }		t_lex;
+
+typedef struct s_ft
+{
+	char	*name;
+	void	(*ft)(char **argv, t_env **env_s, t_ms *ms);
+}	t_ft;
+
+typedef struct s_builtin
+{
+	t_ft	inbuilt[7];
+}	t_builtin;
 
 void		print_commands(t_cmd *cmd);
 
@@ -158,24 +175,64 @@ char		*ft_strnjoin(char *s1, const char *s2, size_t n);
 char		*get_env(const char *name, char **env);
 int			ft_strcmp(const char *s1, const char *s2);
 
-// int			handle_quotes(char *str, int *i, char **ex_str);
-// void		check_and_ex_helper(char *str, char **es, t_ms *ms, int *sf);
-// void		replace_and_free_args(char ***args, int *n, int *s_flag);
-// int			check_and_expand(char **s, t_ms *ms, int *s_flag);
-// int			expand(t_ms *ms);
+//Execution
+void		executor(t_ms *ms);
+void		wait_pids(t_ms *ms, int n_cmd);
+int			pids_init(pid_t **pids, int n_cmd);
+int			fds_init(int ***fds, int n_cmd);
+void		exec_free(t_ms *ms, int n_cmd, int **fds);
 
-// //: expand_utils functions:
-// void		merge_helper(char **new, char ***array1, char **array2, int *i);
-// void		merge_arrays(char ***new_array, char **array1, int *i);
-// char		*ft_strnjoin(char *s1, char *s2, int n);
-// char		*get_env(const char *name, char **env);
-// void		print_cmds(t_ms *mini);
+//exec_utils.c
+void		ft_change_shellvl(t_ms *ms);
+int			ft_alpha_check(char *name, char *cmd, t_ms *ms);
+int			ft_alnum_check(char *name, char *arg, int j, t_ms *ms);
 
-// //: expand_utils_helper functions:
-// void		remove_element(char ***array_ptr, int index);
-// int			handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *m);
-// int			expand_and_join(char *str, int *i, char **ex_str, t_ms *mini);
-// int			handle_dquotes(char *str, int *i, char **ex_str, t_ms *m);
-// int			handle_expansion(char *str, int *i, char **ex_str, t_ms *mini);
+//simple_exec.c
+void		simple_exec(t_ms *ms);
+void		set_pipes(t_cmd *cmd, int *fd);
+void		set_builtin(char **args, t_env *env_s, int *fd, t_ms *ms);
+t_cmd		*find_last_node(t_cmd *cmd);
+int			*set_fds(t_ms *ms);
+
+//multi_exec.c
+int			count_cmd(t_cmd *cmd);
+void		performer(t_ms *ms, int **fds, int ncmd);
+void		child_process(t_cmd *cmd);
+void		close_fds(int **fds, int n_cmd);
+
+//ft_execve.c
+void		ft_execve(t_cmd *cmd, t_env **env_s, t_ms *ms);
+char		*get_path(char *cmd, char **env_s);
+char		**env_to_char(t_env *env_s);
+
+//inbuilds.c
+int			is_builtin(t_cmd *cmd);
+void		exec_builtin(char **argv, t_env **env_s, t_ms *ms);
+//ft_echo.c
+void		ft_echo_prep(char **cmd, t_env **env_s, t_ms *ms);
+//ft_env.c
+void		ft_env_prep(char **cmd, t_env **env_s, t_ms *ms);
+//ft_pwd.c
+void		ft_pwd_prep(char **cmd, t_env **env_s, t_ms *ms);
+//ft_cd.c
+void		ft_cd_prep(char **cmd, t_env **env_s, t_ms *ms);
+char		*ft_getenv(char *name, t_env *env_s);
+void		ft_setenv(char *name, char *value, int overwrite, t_env *env_s);
+//ft_export.c
+void		ft_export_prep(char **cmd, t_env **env_s, t_ms *ms);
+void		identifier_error(char *name, char *cmd, t_ms *ms);
+int			input_checker(char *name, char *cmd, t_ms *ms, t_env **env_s);
+void		ft_export(char *name, t_env **env_s, t_ms *ms);
+
+//ft_unset.c
+void		ft_unset_prep(char **cmd, t_env **env_s, t_ms *ms);
+//ft_exit.c
+void		ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms);
+//save_env_in_struct.c
+t_env		*save_env(char **env, t_env *env_struct);
+
+//to delete later
+int			check_if_file_exits(t_ms *ms, char *path);
+void		handle_directory(char *path);
 
 #endif

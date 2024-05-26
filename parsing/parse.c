@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 04:42:27 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 06:29:15 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	parse(t_ms *ms)
 	if (!commands(ms))
 		return (free_tokens(ms->token), 0);
 	expand(ms);
+	handle_redirection(ms);
 	free_tokens(ms->token);
 	return (1);
 }

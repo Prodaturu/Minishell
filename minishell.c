@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 03:24:34 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 07:03:05 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ int	g_signal = 0;
 void	free_commands(t_ms *ms)
 {
 	(void) (*ms);
-}
-
-void	executor(t_ms *ms)
-{
-	(void)ms;
 }
 
 int	wrong_input(char *input)
@@ -55,6 +50,11 @@ int	wrong_input(char *input)
 
 int	process(t_ms *ms)
 {
+	t_env	*env_s;
+
+	env_s = NULL;
+	env_s = save_env(ms->env, env_s);
+	ms->env_s = env_s;
 	g_signal = 0;
 	ms->input = readline("PROSI-shell$ :");
 	if (ms->input)
@@ -65,27 +65,9 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
+	print_commands(ms->cmd);
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
-
-/**
- * @brief The main function of the minishell program.
- *
- * @param argc The number of command line arguments.
- * @param argv An array of strings representing the command line arguments.
- * @param envp An array of strings representing the environment variables.
- * @return 0 on successful execution.
- * 
- * Entry point of the minishell program.
- * It initializes the `ms` structure with the env variables
- * registers a signal handlers,
- * enable command history
- * binding the tab key for auto-completion
- * loop and process user commands / user input
- * continue to next iteration if input is wrong
- * clear history and exit the program
- * returns 0.
- */
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -102,63 +84,3 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 	return (clear_history(), (void)argv, (void)argc, 0);
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <readline/readline.h>
-// #include <readline/history.h>
-
-// int main(int argc, char **argv, char **envp)
-// {
-//     t_ms ms;
-
-//     ms.env = envp;
-//     if (argc != 1)
-//         return printf("ERROR! Use: ./mini_shell\n"), 1;
-
-//     signal_handler();
-//     using_history();
-//     rl_bind_key('\t', rl_complete);
-
-//     // Add a test command to set a variable
-// 	system("export TEST_VAR=test_value").
-
-//     // Prompt loop
-//     while (1)
-//     {
-//         char *input = readline("$ "); // Prompt user for input
-//         if (!input)
-//             break; // Break the loop if input is NULL (usually EOF or Ctrl+D)
-
-//         // Process the input command
-//         process(&ms);
-
-//         // Free the input buffer
-//         free(input);
-//     }
-
-//     // Test the expanded variable using system echo
-//     system("echo $TEST_VAR");
-
-//     // Clear history and return
-//     return (clear_history(), (void)argv, (void)argc, 0);
-// }
-
-
-// main logic:
-// 1. Initialize the minishell structure.
-// 2. Check the number of arguments passed to the program.
-// 3. Call signal_handler function to handle signals.
-// 4. Bind the tab key to rl_complete function.
-// 5. Call the using_history function to enable history.
-// 6. Start an infinite loop to read the input from user.
-// 7. Read the input from the user.
-// 8. Add the input to the history.
-// 9. Check if the input is wrong.
-// 10. If input is wrong, continue to next iteration.
-// 11. If input is correct, parse the input.
-// 12. If parsing is successful, execute the command.
-// 13. Free input.
-// 14. Continue to next iteration.
-// 15. When done clear the history and return 0.
-// 16. End of main function.

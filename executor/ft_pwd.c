@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 22:47:05 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 05:41:47 by trosinsk         ###   ########.fr       */
+/*   Created: 2024/04/25 16:37:50 by trosinsk          #+#    #+#             */
+/*   Updated: 2024/05/26 02:47:59 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_pwd(t_env **env_s, t_ms *ms)
 {
-	size_t	i;
+	char	*pwd;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (*s != '\0')
-	{
-		i++;
-		s++;
-	}
-	return (i);
+	ms->exit_code = 1;
+	pwd = ft_getenv("PWD", *env_s);
+	printf("%s\n", pwd);
+	ms->exit_code = 0;
+}
+
+void	ft_pwd_prep(char **cmd, t_env **env_s, t_ms *ms)
+{
+	(void)cmd;
+	ft_pwd(env_s, ms);
 }
