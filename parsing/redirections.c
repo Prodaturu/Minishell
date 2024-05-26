@@ -6,31 +6,11 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:50:16 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 03:30:12 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 23:47:25 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// void	remove_element(char ***arr_ptr, int index)
-// {
-// 	char	**arr;
-// 	int		len;
-// 	int		i;
-
-// 	len = 0;
-// 	arr = *arr_ptr;
-// 	i = index;
-// 	while (arr[len])
-// 		len++;
-// 	free(arr[index]);
-// 	arr[len - 1] = NULL;
-// 	while (i < len - 1)
-// 	{
-// 		arr[i] = arr[i + 1];e
-// 		i++;
-// 	}
-// }
 
 int	handle_redirection_out(t_ms *mini, t_cmd *cmd, int *i)
 {
@@ -86,18 +66,12 @@ int	handle_redirection_helper(t_ms *mini, t_cmd *cmd, int *i)
 	if (cmd->args[*i][0] == '<')
 	{
 		if (!handle_redirection_in(mini, cmd, i))
-		{
-			remove_args(cmd);
-			return (0);
-		}
+			return (remove_args(cmd), 0);
 	}
 	else if (cmd->args[*i][0] == '>')
 	{
 		if (!handle_redirection_out(mini, cmd, i))
-		{
-			remove_args(cmd);
-			return (0);
-		}
+			return (remove_args(cmd), 0);
 	}
 	return (1);
 }

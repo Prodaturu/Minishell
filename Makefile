@@ -6,7 +6,7 @@
 #    By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/27 00:37:58 by trosinsk         ###   ########.fr        #
+#    Updated: 2024/05/27 01:45:42 by trosinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,5 +68,7 @@ fclean: clean
 	@make -sC $(LIBFT_DIR) fclean
 
 re: fclean all
+
+ac: all clean
 
 .PHONY: all clean fclean re
