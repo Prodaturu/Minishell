@@ -73,11 +73,11 @@ void	handle_directory(char *path)
 
 int	check_if_file_exits(t_ms *mini, char *path)
 {
-	struct stat	file_stat;
+	struct stat	file_statistic;
 
-	if (stat(path, &file_stat) == 0)
+	if (stat(path, &file_statistic) == 0)
 	{
-		if (!S_ISDIR(file_stat.st_mode))
+		if (!S_ISDIR(file_statistic.st_mode))
 		{
 			if (access(path, R_OK) == -1)
 			{

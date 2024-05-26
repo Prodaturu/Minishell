@@ -71,10 +71,7 @@ int	handle_redirection_helper(t_ms *mini, t_cmd *cmd, int *i)
 	else if (cmd->args[*i][0] == '>')
 	{
 		if (!handle_redirection_out(mini, cmd, i))
-		{
-			remove_args(cmd);
-			return (0);
-		}
+			return (remove_args(cmd), 0);
 	}
 	return (1);
 }
