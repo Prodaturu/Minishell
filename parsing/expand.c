@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 08:26:31 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:03:03 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 
 	str = *s;
 	i = 0;
-	expanded_str = malloc(1);
+	expanded_str = NULL;
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -93,7 +93,10 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 		else if (str[i] == '\"')
 			handle_dquotes(str, &i, &expanded_str, ms);
 		else if (str[i] == '$')
+		{
+			*s_flag = 1; //just to check flow
 			handle_expansion(str, &i, &expanded_str, ms);
+		}
 		else
 			expanded_str = ft_strnjoin(expanded_str, &str[i], 1);
 		i++;
@@ -102,7 +105,6 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 	{
 		free(*s);
 		*s = expanded_str;
-		*s_flag = 1;
 		return (1);
 	}
 	return (0);
@@ -128,6 +130,7 @@ void	expand(t_ms *ms)
 				if (s_flag)
 				{
 					replace_and_free_args(&ms->cmd->args, &i, &s_flag);
+					i++;
 					break ;
 				}
 				else

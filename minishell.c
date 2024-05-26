@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 08:25:24 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:02:04 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ int	wrong_input(char *input)
 
 int	process(t_ms *ms)
 {
-	t_env	*env_s;
-
-	env_s = NULL;
-	env_s = save_env(ms->env, env_s);
-	ms->env_s = env_s;
 	g_signal = 0;
 	ms->input = readline("PROSI-shell$ :");
 	if (ms->input)
@@ -68,12 +63,17 @@ int	process(t_ms *ms)
 	ft_putendl_fd("Parsing done", 1);
 	return (executor(ms), free_commands(ms), free(ms->input), 1);
 }
+// print_commands(ms->cmd);
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
+	t_env	*env_s;
 
+	env_s = NULL;
 	ms.env = envp;
+	env_s = save_env(ms.env, env_s);
+	ms.env_s = env_s;
 	if (argc != 1)
 		return (printf("ERROR! Use: ./mini_shell\n"), 1);
 	signal_handler();

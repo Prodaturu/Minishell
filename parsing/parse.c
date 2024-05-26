@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 07:55:59 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 09:57:01 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_commands(t_cmd *cmd)
 				i++;
 			}
 		}
-		printf("\nprint commands done\n");
+		printf("\ncommands done\n");
 		current = current->next;
 	}
 }

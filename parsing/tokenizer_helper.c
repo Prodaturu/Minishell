@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 05:04:29 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 09:45:35 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,3 @@ t_token	*unclosed_quote_token(void)
 	token->next = NULL;
 	return (token);
 }
-
-// void	*unclosed_quote_token(t_lex *l)
-// {
-// 	if (l->sq)
-// 		printf("ERROR: Unclosed single quote\n");
-// 	else if (l->dq)
-// 		printf("ERROR: Unclosed double quote\n");
-// 	return ;
-// }

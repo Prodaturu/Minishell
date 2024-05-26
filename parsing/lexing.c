@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/25 17:48:37 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/26 09:45:48 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,19 +132,3 @@ int	lexing(t_ms *ms)
 	}
 	return (free(lexer), 1);
 }
-
-// lexer function:
-// 1. Initialize the lexer with the input string.
-// 2. If lexer or input is NULL, return NULL.
-// 3. Get the first token.
-// 4. If token is NULL, return 0.
-// 5. Set the previous token to NULL.
-// 6. Loop until the token type is END.
-// 7. Get the next token.
-// 8. If next token is NULL, set exit code to 258,
-//		print "Syntax Error! unclosed quotes", free lexer and return 0.
-// 9. Set the previous token to the current token.
-// 10. Set the current token to the next token.
-// 11. free lexer and return 1.
-
-// get_token function:
