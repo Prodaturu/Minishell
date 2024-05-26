@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 00:16:39 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:38:36 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,22 @@
 
 int	g_signal = 0;
 
-void	free_commands(t_ms *ms)
+void	free_commands(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	// t_env	*tmp_env;
+	int		i;
 
-	while (ms->cmd)
+	tmp = NULL;
+	while (cmd)
 	{
-		tmp = ms->cmd->next;
-		free(ms->cmd->args);
-		free(ms->cmd);
-		ms->cmd = tmp;
+		tmp = cmd->next;
+		i = 0;
+		while (cmd->args && cmd->args[i])
+			free(cmd->args[i++]);
+		free(cmd->args);
+		free(cmd);
+		cmd = tmp;
 	}
-// 	while (ms->env_s)
-// 	{
-// 		tmp_env = ms->env_s->next;
-// 		free(ms->env_s->env_name);
-// 		free(ms->env_s->env_value);
-// 		free(ms->env_s);
-// 		ms->env_s = tmp_env;
-// 	}
 }
 
 int	wrong_input(char *input)
@@ -62,7 +58,7 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
-	return (executor(ms), free_commands(ms), free(ms->input), 1);
+	return (executor(ms), free_commands(ms->cmd), free(ms->input), 1);
 }
 
 int	main(int argc, char **argv, char **envp)

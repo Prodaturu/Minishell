@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:02:46 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 09:45:14 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:34:41 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,44 @@ char	*redirect_to_str(t_token *token)
 	return (str);
 }
 
+void	free_array(char **array, int index)
+{
+	int	i;
+
+	i = 0;
+	if (index == 0)
+	{
+		while (array[i] != NULL)
+		{
+			free(array[i]);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < index)
+		{
+			free(array[i]);
+			i++;
+		}
+	}
+	free(array);
+}
+
 int	fill_arg_array(int i, t_cmd **cmd, t_token **token)
 {
-	int	index;
+	int		index;
+	t_cmd	*temp;
 
 	index = 0;
+	temp = *cmd;
 	while (index < i)
 	{
 		if ((*token)->type == WORD)
 		{
 			(*cmd)->args[index] = ft_strdup((*token)->value);
 			if ((*cmd)->args[index] == NULL)
-				return (perror("ERROR! strdup fail"), 0);
+				return (perror("ERROR! strdup fail"), free_commands(temp), 0);
 		}
 		else
 		{

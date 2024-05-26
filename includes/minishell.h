@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 07:00:30 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 01:24:52 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int			parse(t_ms *ms);
 int			lexing(t_ms *ms);
 
 //: main functions end: -----------------
+void		free_commands(t_cmd *cmd);
 
 //: freeing parser functions:
 void		free_tokens(t_token *token);
