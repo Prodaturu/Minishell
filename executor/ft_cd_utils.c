@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:09:55 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:46:25 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 23:58:34 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,16 @@ void	ft_setenv(char *name, char *value, int overwrite, t_env *env_s)
 		if (ft_strncmp(tmp->env_name, name, ft_strlen(name)) == 0)
 		{
 			if (overwrite == 1)
+			{
 				tmp->env_value = ft_strdup(value);
+				free(value);
+			}
 			return ;
 		}
 		tmp = tmp->next;
 	}
 	append_node(&tmp, name, value);
+	// free(name);
+	// free(value);
 	env_s = tmp;
 }

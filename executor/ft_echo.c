@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:22:14 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 23:33:16 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 23:42:52 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void	ft_echo_prep(char **cmd, t_env **env_s, t_ms *ms)
 		{
 			i = 2;
 			if (str[j] == '\0')
-			free(str);
+			{
+				// free(str);
 				break ;
+			}
 			j++;
 		}
-		free(str);
 		n_flag = 1;
 	}
+	free(str);
 	ft_echo(cmd, n_flag, i, ms);
 }

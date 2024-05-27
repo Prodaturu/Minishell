@@ -6,7 +6,7 @@
 #    By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 13:33:58 by sprodatu          #+#    #+#              #
-#    Updated: 2024/05/27 01:45:42 by trosinsk         ###   ########.fr        #
+#    Updated: 2024/05/27 21:15:49 by trosinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,14 +50,14 @@ OBJS = $(SRCS:.c=.o)
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)
 
 $(LIBFT):
 	@echo "Making Libft..."
 	make -sC $(LIBFT_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 	
 clean:
 	rm -f $(OBJS) $(LIBFT_DIR)/*.o

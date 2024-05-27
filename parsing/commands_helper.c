@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:02:46 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 01:34:41 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:42:21 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void	free_array(char **array, int index)
 int	fill_arg_array(int i, t_cmd **cmd, t_token **token)
 {
 	int		index;
-	t_cmd	*temp;
+	// t_cmd	*temp;
 
 	index = 0;
-	temp = *cmd;
+	// temp = *cmd;
 	while (index < i)
 	{
 		if ((*token)->type == WORD)
 		{
 			(*cmd)->args[index] = ft_strdup((*token)->value);
 			if ((*cmd)->args[index] == NULL)
-				return (perror("ERROR! strdup fail"), free_commands(temp), 0);
+				return (perror("ERROR! strdup fail"), 0);
 		}
 		else
 		{

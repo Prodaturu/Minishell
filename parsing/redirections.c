@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:50:16 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 23:47:25 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:47:55 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	handle_redirection_in(t_ms *mini, t_cmd *cmd, int *i)
 {
 	if (!cmd->args[*i + 1])
 		return (1);
-	if (!ft_strcmp(cmd->args[*i], "<") && !check_file(cmd->args[(*i) + 1]))
+	if ((!ft_strcmp(cmd->args[*i], "<") || (!ft_strcmp(cmd->args[*i], "<<")))
+		&& !check_file(cmd->args[(*i) + 1]))
 	{
 		mini->exit_code = 1;
 		return (0);

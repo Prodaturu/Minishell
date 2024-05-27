@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 00:05:54 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:02:42 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
 	temp = ft_substr(str, sp, ep - sp);
 	expansion = get_env(temp, ms->env);
 	if (!expansion)
-		return (0);
+		return (free(temp), 0);
 	*ex_str = ft_strnjoin(*ex_str, expansion, ft_strlen(expansion));
 	ft_setenv(temp, expansion, 1, ms->env_s);
 	free(temp);
@@ -75,7 +75,8 @@ int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
 
 int	handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms)
 {
-	(*i)++;
+	if (*i < (int)ft_strlen(str))
+		(*i)++;
 	while (str[*i] && str[*i] != '\"')
 	{
 		if (str[*i] == '$' && str[(*i) + 1] != '\"' && str[(*i) + 1] != ' ')
@@ -84,18 +85,22 @@ int	handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms)
 			*ex_str = ft_strnjoin(*ex_str, &str[*i], 1);
 		(*i)++;
 	}
-	(*i)++;
+	if (*i < (int)ft_strlen(str))
+		(*i)++;
 	return (1);
 }
 
 int	handle_squotes(char *str, int *i, char **ex_str)
 {
 	int	start;
+	int	end;
 
 	start = ++(*i);
+	end = ft_strlen(str);
 	while (str[*i] && str[*i] != '\'')
 		(*i)++;
 	*ex_str = ft_strnjoin(*ex_str, &str[start], *i - start);
-	(*i)++;
+	if (*i < end)
+		(*i)++;
 	return (1);
 }

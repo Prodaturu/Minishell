@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:22:21 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 06:55:58 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:25:40 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	simple_exec(t_ms *mini)
 	fd = set_fds(mini);
 	set_pipes(mini->cmd, fd);
 	if (is_builtin(mini->cmd))
-		return (set_builtin(mini->cmd->args, mini->env_s, fd, mini));
+		return (set_builtin(mini->cmd->args, mini->env_s, fd, mini), free(fd));
 	g_signal = 1;
 	pid = fork();
 	if (pid == -1)
@@ -78,6 +78,7 @@ void	simple_exec(t_ms *mini)
 		ft_execve(mini->cmd, &mini->env_s, mini);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
+	free(fd);
 	waitpid(pid, &status, 0);
 	mini->exit_code = WEXITSTATUS(status);
 	g_signal = 0;

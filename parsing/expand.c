@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 21:10:10 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:53:09 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	replace_and_free_args(char ***args, int *n, int *s_flag)
 
 int	handle_expansion(char *str, int *i, char **ex_str, t_ms *ms)
 {
-	(*i)++;
+	if (*i < (int)ft_strlen(str))
+		(*i)++;
 	if (str[*i] == '$' || str[*i] == '?')
 		return (handle_pid_exitcode_ex(str, i, ex_str, ms));
 	return (expand_and_join(str, i, ex_str, ms));
@@ -82,11 +83,13 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 	char	*expanded_str;
 	char	*str;
 	int		i;
+	int		len;
 
 	str = *s;
 	i = 0;
+	len = ft_strlen(str);
 	expanded_str = NULL;
-	while (str[i])
+	while (str[i] && i < len)
 	{
 		if (str[i] == '\'')
 			handle_squotes(str, &i, &expanded_str);

@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:46:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 22:48:20 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 20:24:32 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,13 @@ void	exec_builtin(char **argv, t_env **env, t_ms *mini)
 		{
 			bt->inbuilt[i].ft(argv, env, mini);
 			free(temp);
+			// free(bt->inbuilt);
+			free(bt);
 			return ;
 		}
 		i++;
 	}
 	free(temp);
+	free(bt->inbuilt);
+	free(bt);
 }

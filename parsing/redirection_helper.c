@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:52:27 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 01:48:54 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:47:18 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ void	set_fd_helper(char *re, char *path, t_cmd *cmd)
 	cmd->fd_out != STDOUT_FILENO)
 		close(cmd->fd_out);
 	if (!ft_strcmp(re, ">"))
-		cmd->fd_out = open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (!ft_strcmp(re, ">>"))
+	{
 		cmd->fd_out = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+	}
+	if (!ft_strcmp(re, ">>"))
+	{
+		cmd->fd_out = open(path, O_CREAT | O_RDWR | O_APPEND, 0644);
+	}
 	if ((!ft_strcmp(re, "<<") || !ft_strcmp(re, "<")) && \
 	cmd->fd_in != STDIN_FILENO)
 		close(cmd->fd_in);
@@ -50,11 +54,11 @@ int	set_fd(char *re, char *path, t_cmd *cmd, t_ms *mini)
 	set_fd_helper(re, path, cmd);
 	if (!ft_strcmp(re, "<<"))
 	{
-		cmd->fd_in = open("lib/libft/.heredoc", \
+		cmd->fd_in = open(".heredoc", \
 		O_CREAT | O_RDWR | O_TRUNC, 0644);
 		heredoc(cmd->fd_in, path, mini);
 		close(cmd->fd_in);
-		cmd->fd_in = open("lib/libft/.heredoc", O_RDONLY);
+		cmd->fd_in = open(".heredoc", O_RDONLY);
 	}
 	if (cmd->fd_in == -1 || cmd->fd_out == -1)
 	{
