@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:32:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 23:37:47 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 01:09:46 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	identifier_error(char *name, char *cmd, t_ms *ms)
 {
-	ft_putstr_fd("minishel: ", 2);
+	ft_putstr_fd("PROSI-shell: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(": '", 2);
 	ft_putstr_fd(cmd, 2);
