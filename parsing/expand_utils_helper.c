@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 00:00:35 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 20:52:21 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:55:20 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,86 @@ char	*get_env(const char *name, char **env)
 	return (NULL);
 }
 
-char	*ft_strnjoin(char *s1, const char *s2, size_t n)
+void	ft_strnjoin_helper(char *dest, const char *src, size_t n)
 {
-	char	*str;
-	size_t	len1;
+	size_t	i;
 
-	if (!s1 && !s2)
-		return (NULL);
-	len1 = ft_strlen(s1);
-	str = (char *)malloc((len1 + n + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	if (s1)
-		ft_strlcpy(str, s1, len1 + 1);
-	else
-		*str = '\0';
-	ft_strnjoin_helper(str + len1, s2, n);
-	if (s1)
-		free(s1);
-	return (str);
+	i = 0;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
+{
+	char	*expansion;
+	char	*temp;
+	int		sp;
+	int		ep;
+
+	sp = *i;
+	while (str[*i] && ft_isalnum(str[*i]))
+	{
+		(*i)++;
+		ep = *i;
+	}
+	temp = ft_substr(str, sp, ep - sp);
+	expansion = get_env(temp, ms->env);
+	if (!expansion)
+		return (free(temp), 0);
+	*ex_str = ft_strnjoin(*ex_str, expansion, ft_strlen(expansion));
+	ft_setenv(temp, expansion, 1, ms->env_s);
+	free(temp);
+	return (1);
+}
+
+char	**new_args_maker(char **new_args, char **args, char **splt_args, int *n)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (args[i])
+	{
+		if (i == *n)
+		{
+			j = 0;
+			while (splt_args[j])
+				new_args[k++] = splt_args[j++];
+		}
+		else
+			new_args[k++] = args[i];
+		i++;
+	}
+	new_args[k] = NULL;
+}
+
+void	process_args(t_cmd *cmd, t_ms *ms)
+{
+	int	i;
+	int	s_flag;
+
+	i = 0;
+	s_flag = 0;
+	while (cmd->args && cmd->args[i] != NULL)
+	{
+		if (check_and_expand(&cmd->args[i], ms, &s_flag))
+		{
+			if (s_flag)
+			{
+				replace_and_free_args(&cmd->args, &i, &s_flag);
+				i++;
+				break ;
+			}
+			else
+				i++;
+		}
+		else
+			i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 19:27:16 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/27 23:44:44 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:20:06 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //changing way of saving env, from char to struct
 
-static t_env	*find_last(t_env *env_s)
+t_env	*find_last(t_env *env_s)
 {
 	if (NULL == env_s)
 		return (NULL);
@@ -23,7 +23,7 @@ static t_env	*find_last(t_env *env_s)
 	return (env_s);
 }
 
-static void	free_struct(t_env **stack)
+void	free_struct(t_env **stack)
 {
 	t_env	*tmp;
 	t_env	*current;
@@ -40,7 +40,7 @@ static void	free_struct(t_env **stack)
 	*stack = NULL;
 }
 
-static void	append_node(t_env **env_s, char *token, char *type)
+void	append_node(t_env **env_s, char *token, char *type)
 {
 	t_env	*node;
 	t_env	*last_node;
@@ -52,8 +52,12 @@ static void	append_node(t_env **env_s, char *token, char *type)
 		return (free_struct(env_s), (void) NULL);
 	node->next = NULL;
 	node->env_name = ft_strdup(token);
+	free(token);
 	if (type)
+	{
 		node->env_value = ft_strdup(type);
+		free(type);
+	}
 	if (NULL == *env_s)
 		*env_s = node;
 	else
@@ -73,14 +77,10 @@ t_env	*save_env(char **env, t_env *env_struct)
 	{
 		env_split = ft_split(env[i], '=');
 		if (env_split[0] && !env_split[1])
-			env_split[1] = "";
+			env_split[1] = ft_strdup("");
 		append_node(&env_struct, env_split[0], env_split[1]);
-		free(env_split[0]);
-		free(env_split[1]);
 		free(env_split);
 		i++;
 	}
 	return (env_struct);
 }
-			// env_split[1] = "(null)"; l76
-//free instead of break

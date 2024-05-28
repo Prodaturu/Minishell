@@ -6,24 +6,11 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 21:02:42 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:55:09 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_strnjoin_helper(char *dest, const char *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
 
 int	handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms)
 {
@@ -50,27 +37,25 @@ int	handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms)
 	return (1);
 }
 
-int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
+char	*ft_strnjoin(char *s1, const char *s2, size_t n)
 {
-	char	*expansion;
-	char	*temp;
-	int		sp;
-	int		ep;
+	char	*str;
+	size_t	len1;
 
-	sp = *i;
-	while (str[*i] && ft_isalnum(str[*i]))
-	{
-		(*i)++;
-		ep = *i;
-	}
-	temp = ft_substr(str, sp, ep - sp);
-	expansion = get_env(temp, ms->env);
-	if (!expansion)
-		return (free(temp), 0);
-	*ex_str = ft_strnjoin(*ex_str, expansion, ft_strlen(expansion));
-	ft_setenv(temp, expansion, 1, ms->env_s);
-	free(temp);
-	return (1);
+	if (!s1 && !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	str = (char *)malloc((len1 + n + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	if (s1)
+		ft_strlcpy(str, s1, len1 + 1);
+	else
+		*str = '\0';
+	ft_strnjoin_helper(str + len1, s2, n);
+	if (s1)
+		free(s1);
+	return (str);
 }
 
 int	handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms)
@@ -103,4 +88,13 @@ int	handle_squotes(char *str, int *i, char **ex_str)
 	if (*i < end)
 		(*i)++;
 	return (1);
+}
+
+int	handle_expansion(char *str, int *i, char **ex_str, t_ms *ms)
+{
+	if (*i < (int)ft_strlen(str))
+		(*i)++;
+	if (str[*i] == '$' || str[*i] == '?')
+		return (handle_pid_exitcode_ex(str, i, ex_str, ms));
+	return (expand_and_join(str, i, ex_str, ms));
 }

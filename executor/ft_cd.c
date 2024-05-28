@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:33:36 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 02:47:46 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:08:23 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ char	*ft_getenv(char *name, t_env *env_s)
 		tmp = tmp->next;
 	}
 	return (name);
+}
+
+static char	*newpath_join(char *newpath, char *pwd, char *path)
+{
+	pwd = ft_strjoin(pwd, "/");
+	newpath = ft_strjoin(pwd, path);
+	free(pwd);
+	return (newpath);
 }
 
 char	*set_newpath(char *path, char *home, char *pwd, char *oldpwd)
@@ -51,10 +59,7 @@ char	*set_newpath(char *path, char *home, char *pwd, char *oldpwd)
 	else if (path[0] == '/' && !ft_strcmp(path, pwd))
 		newpath = ft_strjoin(pwd, path);
 	else
-	{
-		pwd = ft_strjoin(pwd, "/");
-		newpath = ft_strjoin(pwd, path);
-	}
+		newpath = newpath_join(newpath, pwd, path);
 	return (newpath);
 }
 
@@ -81,6 +86,7 @@ void	ft_cd(char *path, t_env **env_s, t_ms *ms)
 		return ;
 	}
 	ft_setenv("PWD", newpath, 1, *env_s);
+	free(newpath);
 	ms->exit_code = 0;
 }
 

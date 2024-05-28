@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:58:51 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 23:50:03 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 23:44:48 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	executor(t_ms *mini)
 	if (ncmd == 1)
 	{
 		simple_exec(mini);
-		// exec_free(mini, ncmd, fds); //leaks olved?
 		return ;
 	}
 	if (!fds_init(&fds, ncmd))

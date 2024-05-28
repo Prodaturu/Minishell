@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 01:24:52 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 01:02:03 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		print_commands(t_cmd *cmd);
 
 int			parse(t_ms *ms);
 int			lexing(t_ms *ms);
+// void		print_cmds(t_ms *mini);
 
 //: main functions end: -----------------
 void		free_commands(t_cmd *cmd);
@@ -149,91 +150,104 @@ int			get_args(t_token **token, t_cmd *cmd);
 int			fill_arg_array(int i, t_cmd **cmd, t_token **token);
 char		*redirect_to_str(t_token *token);
 
-//: expand functions:
-void		remove_element(char ***arr_ptr, int index);
+//: expand :
 void		expand(t_ms *ms);
-char		*get_env(const char *name, char **env);
-char		*ft_strnjoin(char *s1, const char *s2, size_t n);
-void		ft_strnjoin_helper(char *dest, const char *src, size_t n);
+int			check_and_expand(char **s, t_ms *ms, int *s_flag);
+void		replace_and_free_args(char ***args, int *n, int *s_flag);
+
+//: expand_utils.c:
 int			handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms);
-int			expand_and_join(char *str, int *i, char **ex_str, t_ms *ms);
 int			handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms);
 int			handle_squotes(char *str, int *i, char **ex_str);
-void		replace_and_free_args(char ***args, int *n, int *s_flag);
 int			handle_expansion(char *str, int *i, char **ex_str, t_ms *ms);
-int			check_and_expand(char **s, t_ms *ms, int *s_flag);
-void		expand(t_ms *ms);
+char		*ft_strnjoin(char *s1, const char *s2, size_t n);
+
+//: expand_utils_helper.c:
+void		ft_strnjoin_helper(char *dest, const char *src, size_t n);
+char		*get_env(const char *name, char **env);
+char		**new_args_maker(char **n_as, char **as, char **s_as, int *n);
+int			expand_and_join(char *str, int *i, char **ex_str, t_ms *ms);
+void		process_args(t_cmd *cmd, t_ms *ms);
 
 //: redrection functions:
 void		handle_redirection(t_ms *mini);
-void		heredoc(int fd, char *del, t_ms *mini);
-void		remove_cmd_node(t_ms *mini, t_cmd *node_to_remove);
-void		print_cmds(t_ms *mini);
-int			check_if_file_exits(t_ms *mini, char *path);
+
+//: redrection_helper functions:
 int			check_file(char *path);
 int			set_fd(char *re, char *path, t_cmd *cmd, t_ms *mini);
-char		*ft_strnjoin(char *s1, const char *s2, size_t n);
-char		*get_env(const char *name, char **env);
-int			ft_strcmp(const char *s1, const char *s2);
+int			check_if_file_exits(t_ms *mini, char *path);
 
-//Execution
+//: h_doc functions:
+void		heredoc(int fd, char *del, t_ms *mini);
+int			ft_strcmp(const char *s1, const char *s2);
+void		remove_element(char ***arr_ptr, int index);
+void		remove_cmd_node(t_ms *mini, t_cmd *node_to_remove);
+
+//: executor functions:
 void		executor(t_ms *ms);
 void		wait_pids(t_ms *ms, int n_cmd);
 int			pids_init(pid_t **pids, int n_cmd);
 int			fds_init(int ***fds, int n_cmd);
 void		exec_free(t_ms *ms, int n_cmd, int **fds);
 
-//exec_utils.c
+//exec_utils functions:
 void		ft_change_shellvl(t_ms *ms);
 int			ft_alpha_check(char *name, char *cmd, t_ms *ms);
 int			ft_alnum_check(char *name, char *arg, int j, t_ms *ms);
+void		free_array(char **array, int index);
 
-//simple_exec.c
+//simple_exec functions:
 void		simple_exec(t_ms *ms);
 void		set_pipes(t_cmd *cmd, int *fd);
 void		set_builtin(char **args, t_env *env_s, int *fd, t_ms *ms);
 t_cmd		*find_last_node(t_cmd *cmd);
 int			*set_fds(t_ms *ms);
 
-//multi_exec.c
+//multi_exec functions:
 int			count_cmd(t_cmd *cmd);
 void		performer(t_ms *ms, int **fds, int ncmd);
 void		child_process(t_cmd *cmd);
 void		close_fds(int **fds, int n_cmd);
 
-//ft_execve.c
+//ft_execve functions:
 void		ft_execve(t_cmd *cmd, t_env **env_s, t_ms *ms);
 char		*get_path(char *cmd, char **env_s);
 char		**env_to_char(t_env *env_s);
 
-//inbuilds.c
+//inbuilds functions:
 int			is_builtin(t_cmd *cmd);
 void		exec_builtin(char **argv, t_env **env_s, t_ms *ms);
-//ft_echo.c
+
+//ft_echo functions:
 void		ft_echo_prep(char **cmd, t_env **env_s, t_ms *ms);
-//ft_env.c
+
+//ft_env functions:
 void		ft_env_prep(char **cmd, t_env **env_s, t_ms *ms);
-//ft_pwd.c
+
+//ft_pwd functions:
 void		ft_pwd_prep(char **cmd, t_env **env_s, t_ms *ms);
-//ft_cd.c
+
+//ft_cd functions:
 void		ft_cd_prep(char **cmd, t_env **env_s, t_ms *ms);
 char		*ft_getenv(char *name, t_env *env_s);
 void		ft_setenv(char *name, char *value, int overwrite, t_env *env_s);
-//ft_export.c
+
+//ft_export functions:
 void		ft_export_prep(char **cmd, t_env **env_s, t_ms *ms);
 void		identifier_error(char *name, char *cmd, t_ms *ms);
 int			input_checker(char *name, char *cmd, t_ms *ms, t_env **env_s);
 void		ft_export(char *name, t_env **env_s, t_ms *ms);
 
-//ft_unset.c
+//ft_unset functions:
 void		ft_unset_prep(char **cmd, t_env **env_s, t_ms *ms);
-//ft_exit.c
-void		ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms);
-//save_env_in_struct.c
-t_env		*save_env(char **env, t_env *env_struct);
 
-//to delete later
-int			check_if_file_exits(t_ms *ms, char *path);
-void		handle_directory(char *path);
+//ft_exit functions:
+void		ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms);
+
+//save_env_in_struct functions:
+t_env		*save_env(char **env, t_env *env_struct);
+void		append_node(t_env **env_s, char *token, char *type);
+void		free_struct(t_env **stack);
+t_env		*find_last(t_env *env_s);
 
 #endif

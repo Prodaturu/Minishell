@@ -6,11 +6,29 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 19:36:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 21:07:28 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:05:57 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	**env_join(t_env *tmp, char **env)
+{
+	int		i;
+	char	*tmp1;
+
+	i = 0;
+	while (tmp)
+	{
+		tmp1 = ft_strjoin(tmp->env_name, "=");
+		env[i] = ft_strjoin(tmp1, tmp->env_value);
+		free(tmp1);
+		i++;
+		tmp = tmp->next;
+	}
+	env[i] = NULL;
+	return (env);
+}
 
 char	**env_to_char(t_env *env_s)
 {
@@ -30,14 +48,7 @@ char	**env_to_char(t_env *env_s)
 		return (NULL);
 	i = 0;
 	tmp = env_s;
-	while (tmp)
-	{
-		env[i] = ft_strjoin(tmp->env_name, "=");
-		env[i] = ft_strjoin(env[i], tmp->env_value);
-		i++;
-		tmp = tmp->next;
-	}
-	env[i] = NULL;
+	env = env_join(tmp, env);
 	return (env);
 }
 
@@ -90,23 +101,6 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	free_struct(t_env **stack)
-{
-	t_env	*tmp;
-	t_env	*current;
-
-	if (!stack)
-		return ;
-	current = NULL;
-	while (current)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	*stack = NULL;
-}
-
 void	ft_execve(t_cmd *cmd, t_env **env_s, t_ms *mini)
 {
 	if (!cmd->args)
@@ -114,14 +108,20 @@ void	ft_execve(t_cmd *cmd, t_env **env_s, t_ms *mini)
 	if (cmd->args[0] == NULL)
 		exit(0);
 	mini->env = env_to_char(*env_s);
+	if (mini->env == NULL)
+	{
+		free_struct(env_s);
+		exit(1);
+	}
 	if (execve(get_path(cmd->args[0], mini->env),
 			cmd->args, mini->env))
 	{
+		free_array(mini->env, 0);
+		free_struct(env_s);
 		ft_putstr_fd("minishel: ", 2);
 		ft_putstr_fd(cmd->args[0], 2);
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd("command not found", 2);
-		free_struct(env_s);
 		exit(127);
 	}
 }

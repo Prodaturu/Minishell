@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 01:38:36 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 00:35:03 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	process(t_ms *ms)
 		return (0);
 	if (!parse(ms))
 		return (free(ms->input), 0);
-	return (executor(ms), free_commands(ms->cmd), free(ms->input), 1);
+	executor(ms);
+	return (free_commands(ms->cmd), free(ms->input), 1);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 20:53:09 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 00:47:47 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,7 @@ char	**allocate_new_args(char **args, char *temp, char **split_args, int *n)
 	new_args = malloc(sizeof(char *) * (i + j));
 	if (!new_args)
 		return (NULL);
-	i = 0;
-	k = 0;
-	while (args[i])
-	{
-		if (i == *n)
-		{
-			j = 0;
-			while (split_args[j])
-				new_args[k++] = split_args[j++];
-		}
-		else
-			new_args[k++] = args[i];
-		i++;
-	}
-	new_args[k] = NULL;
+	new_args = new_args_maker(new_args, args, split_args, n);
 	return ((void) temp, new_args);
 }
 
@@ -69,27 +55,14 @@ void	replace_and_free_args(char ***args, int *n, int *s_flag)
 	*args = new_args;
 }
 
-int	handle_expansion(char *str, int *i, char **ex_str, t_ms *ms)
+char	*str_expander(char *expanded_str, char *str, int *s_flag, t_ms *ms)
 {
-	if (*i < (int)ft_strlen(str))
-		(*i)++;
-	if (str[*i] == '$' || str[*i] == '?')
-		return (handle_pid_exitcode_ex(str, i, ex_str, ms));
-	return (expand_and_join(str, i, ex_str, ms));
-}
+	int	i;
+	int	len;
 
-int	check_and_expand(char **s, t_ms *ms, int *s_flag)
-{
-	char	*expanded_str;
-	char	*str;
-	int		i;
-	int		len;
-
-	str = *s;
 	i = 0;
 	len = ft_strlen(str);
-	expanded_str = NULL;
-	while (str[i] && i < len)
+	while (i < len)
 	{
 		if (str[i] == '\'')
 			handle_squotes(str, &i, &expanded_str);
@@ -97,13 +70,24 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 			handle_dquotes(str, &i, &expanded_str, ms);
 		else if (str[i] == '$')
 		{
-			*s_flag = 1; //just to check flow
+			*s_flag = 1;
 			handle_expansion(str, &i, &expanded_str, ms);
 		}
 		else
 			expanded_str = ft_strnjoin(expanded_str, &str[i], 1);
 		i++;
 	}
+	return (expanded_str);
+}
+
+int	check_and_expand(char **s, t_ms *ms, int *s_flag)
+{
+	char	*expanded_str;
+	char	*str;
+
+	str = *s;
+	expanded_str = NULL;
+	expanded_str = str_expander(expanded_str, str, ms, s_flag);
 	if (expanded_str)
 	{
 		free(*s);
@@ -116,31 +100,44 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 void	expand(t_ms *ms)
 {
 	t_cmd	*temp;
-	int		i;
-	int		s_flag;
 
 	temp = ms->cmd;
 	while (ms->cmd)
 	{
-		i = 0;
-		s_flag = 0;
-		while (ms->cmd->args && ms->cmd->args[i])
-		{
-			if (check_and_expand(&ms->cmd->args[i], ms, &s_flag))
-			{
-				if (s_flag)
-				{
-					replace_and_free_args(&ms->cmd->args, &i, &s_flag);
-					i++;
-					break ;
-				}
-				else
-					i++;
-			}
-			else
-				i++;
-		}
+		process_args(ms->cmd, ms);
 		ms->cmd = ms->cmd->next;
 	}
 	ms->cmd = temp;
 }
+
+// void	expand(t_ms *ms)
+// {
+// 	t_cmd	*temp;
+// 	int		i;
+// 	int		s_flag;
+
+// 	temp = ms->cmd;
+// 	while (ms->cmd)
+// 	{
+// 		i = 0;
+// 		s_flag = 0;
+// 		while (ms->cmd->args && ms->cmd->args[i] != NULL)
+// 		{
+// 			if (check_and_expand(&ms->cmd->args[i], ms, &s_flag))
+// 			{
+// 				if (s_flag)
+// 				{
+// 					replace_and_free_args(&ms->cmd->args, &i, &s_flag);
+// 					i++;
+// 					break ;
+// 				}
+// 				else
+// 					i++;
+// 			}
+// 			else
+// 				i++;
+// 		}
+// 		ms->cmd = ms->cmd->next;
+// 	}
+// 	ms->cmd = temp;
+// }
