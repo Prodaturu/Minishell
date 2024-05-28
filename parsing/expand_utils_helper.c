@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 00:00:35 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 00:55:20 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 01:36:05 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	**new_args_maker(char **new_args, char **args, char **splt_args, int *n)
 		i++;
 	}
 	new_args[k] = NULL;
+	return (new_args);
 }
 
 void	process_args(t_cmd *cmd, t_ms *ms)

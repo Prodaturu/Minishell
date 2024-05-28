@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 00:47:47 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 01:35:43 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	**allocate_new_args(char **args, char *temp, char **split_args, int *n)
 {
 	int		i;
 	int		j;
-	int		k;
 	char	**new_args;
 
 	i = 0;
@@ -87,7 +86,7 @@ int	check_and_expand(char **s, t_ms *ms, int *s_flag)
 
 	str = *s;
 	expanded_str = NULL;
-	expanded_str = str_expander(expanded_str, str, ms, s_flag);
+	expanded_str = str_expander(expanded_str, str, s_flag, ms);
 	if (expanded_str)
 	{
 		free(*s);
