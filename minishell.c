@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 00:37:46 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 01:22:44 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,9 @@ static void	clear_ms(t_ms *ms)
 	if (ms->pids)
 		free(ms->pids);
 	if (ms->env_s)
-		free_env(ms->env_s);
+		free_struct(&ms->env_s);
 	if (ms->token)
 		free_tokens(ms->token);
-	if (ms->exit_code)
-		free(ms->exit_code);
 	if (ms->env)
 		free_array(ms->env, 0);
 	if (ms)
