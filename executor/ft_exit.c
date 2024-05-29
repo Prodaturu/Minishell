@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 22:28:42 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/26 10:10:06 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:19:58 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_exit(char **cmd, t_ms *ms, int msg_flag, t_env **env_s)
 {
 	(void)env_s;
+	if (!cmd[1])
+		cmd[1] = "0";
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (msg_flag == 0)
 		exit(ft_atoi(cmd[1]));
@@ -34,12 +36,10 @@ void	ft_exit(char **cmd, t_ms *ms, int msg_flag, t_env **env_s)
 
 	//1 - numeric argument required
 	//2 - too many arguments
-int	msg_calc(char **cmd, int i, int j)
+int	msg_calc(char **cmd, int i, int j, int msg_flag)
 {
-	int	msg_flag;
 	int	digit_flag;
 
-	msg_flag = 0;
 	digit_flag = 0;
 	if (i > 1 && msg_flag == 0)
 		msg_flag = 2;
@@ -62,17 +62,20 @@ void	ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms)
 	i = 1;
 	j = 0;
 	msg_flag = 0;
-	while (cmd[i] && msg_flag != 2)
+	if (cmd[1])
 	{
-		if (!cmd[1])
-			break ;
-		j = 0;
-		while (cmd[i][j])
+		while (cmd[i] && msg_flag != 2)
 		{
-			msg_flag = msg_calc(cmd, i, j);
-			j++;
+			if (!cmd[1])
+				break ;
+			j = 0;
+			while (cmd[i][j])
+			{
+				msg_flag = msg_calc(cmd, i, j, msg_flag);
+				j++;
+			}
+			i++;
 		}
-		i++;
 	}
 	ft_exit(cmd, ms, msg_flag, env_s);
 }
