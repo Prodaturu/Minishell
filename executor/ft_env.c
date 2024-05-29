@@ -6,14 +6,12 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:12 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 18:43:53 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:10:48 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//env is finded just with space after env. change it to
-//find env with space or \0
 void	ft_env(t_env **env_s, t_ms *ms)
 {
 	t_env	*tmp;

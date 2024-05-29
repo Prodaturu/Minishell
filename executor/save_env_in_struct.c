@@ -6,13 +6,11 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 19:27:16 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 01:09:29 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:10:17 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//changing way of saving env, from char to struct
 
 t_env	*find_last(t_env *env_s)
 {

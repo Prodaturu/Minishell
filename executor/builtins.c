@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:46:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 23:44:38 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:11:35 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	init_builtins(t_builtin *bt)
 	inbuilt[6].ft = &ft_exit_prep;
 }
 
-	// inbuilt[7].name = NULL;
-	// inbuilt[7].ft = NULL;
 t_builtin	*get_bt(void)
 {
 	t_builtin	*bt;

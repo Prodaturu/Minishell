@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 22:28:42 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 22:00:07 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:03:58 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	ft_exit(char **cmd, t_ms *ms, int msg_flag, t_env **env_s)
 	}
 }
 
-	//1 - numeric argument required
-	//2 - too many arguments
 int	msg_calc(char **cmd, int i, int j, int msg_flag)
 {
 	int	digit_flag;
