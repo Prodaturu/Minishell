@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 04:50:47 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 09:45:48 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:41:48 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_token	*get_token(t_lex *lexer)
 			return (in_token(lexer));
 		else if (current_char == '>')
 			return (out_token(lexer));
-		else if ((current_char == '\'' || current_char == '"' )
+		else if ((current_char == '\'' || current_char == '\"' )
 			&& lexer->input[lexer->pos + 1] == current_char)
 			return (lexer->pos++, lexer->pos++, empty_quotes_token());
 		else

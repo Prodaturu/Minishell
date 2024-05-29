@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 01:02:03 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:47:07 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_builtin
 }	t_builtin;
 
 void		print_commands(t_cmd *cmd);
+void		print_tokens(t_token *token);
 
 //: main functions: ---------------------
 
@@ -191,7 +192,7 @@ int			fds_init(int ***fds, int n_cmd);
 void		exec_free(t_ms *ms, int n_cmd, int **fds);
 
 //exec_utils functions:
-void		ft_change_shellvl(t_ms *ms);
+void		ft_change_shellvl(t_ms *ms, int i);
 int			ft_alpha_check(char *name, char *cmd, t_ms *ms);
 int			ft_alnum_check(char *name, char *arg, int j, t_ms *ms);
 void		free_array(char **array, int index);
@@ -237,6 +238,9 @@ void		ft_export_prep(char **cmd, t_env **env_s, t_ms *ms);
 void		identifier_error(char *name, char *cmd, t_ms *ms);
 int			input_checker(char *name, char *cmd, t_ms *ms, t_env **env_s);
 void		ft_export(char *name, t_env **env_s, t_ms *ms);
+void		new_env_exp(char *append_env, t_env *tmp, char **newenv);
+char		*env_strjoin(t_env *tmp, char **newenv);
+char		*env_strdup(t_env *tmp, char **newenv);
 
 //ft_unset functions:
 void		ft_unset_prep(char **cmd, t_env **env_s, t_ms *ms);

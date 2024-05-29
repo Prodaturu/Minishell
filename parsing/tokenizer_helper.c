@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 09:45:35 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:44:47 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	quote_token_value(t_lex *l, char q)
 	if (q == '\'' && !l->sq && !l->dq)
 		l->sq = 1;
 	else if (q == '\'' && l->sq && !l->dq
-		&& (l->input[l->pos + 1] == '\''))
+		&& (l->input[l->pos] == '\''))
 		l->sq = 0;
 	else if (q == '\"' && !l->sq && !l->dq)
 		l->dq = 1;
@@ -156,7 +156,7 @@ t_token	*unclosed_quote_token(void)
 	if (!token)
 		return (NULL);
 	token->type = ERR;
-	printf("ERROR: Unclosed quote----------\n");
+	// printf("ERROR: Unclosed quote----------\n");
 	token->value = ft_strdup("Unclosed quote");
 	token->next = NULL;
 	return (token);

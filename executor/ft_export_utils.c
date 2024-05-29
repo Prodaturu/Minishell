@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:32:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 01:09:46 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:10:11 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,18 @@ int	input_checker(char *name, char *cmd, t_ms *ms, t_env **env_s)
 	while (tmp[0][i])
 	{
 		if (!ft_isalnum(tmp[0][i]) && tmp[0][i] != '_')
-			return (identifier_error(name, cmd, ms), free_array(tmp, 0), 0);
+			if (tmp[0][i + 1] && tmp[0][i + 1] != '=' && tmp[0][i] != '+')
+				return (identifier_error(name, cmd, ms), free_array(tmp, 0), 0);
 		i++;
 	}
 	return (free_array(tmp, 0), 1);
+}
+
+void	new_env_exp(char *append_env, t_env *tmp, char **newenv)
+{
+	if (ft_strnstr(append_env, "+", ft_strlen(append_env)))
+		tmp->env_value = env_strjoin(tmp, newenv);
+	else
+		tmp->env_value = env_strdup(tmp, newenv);
+	free(append_env);
 }

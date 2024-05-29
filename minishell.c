@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 18:02:08 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:31:48 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	wrong_input(char *input)
 		return (free(input), 1);
 	if (ft_strncmp(input, "clear", 5) == 0)
 		return (printf("\033[H\033[J"), free(input), 1);
-	// if (ft_strncmp(input, "exit", 4) == 0)
-	// 	return (free(input), exit(0), 1);
 	return (0);
 }
 
@@ -79,5 +77,6 @@ int	main(int argc, char **argv, char **envp)
 	while (9)
 		if (!process(&ms))
 			continue ;
+	//clear_ms_to_do(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }

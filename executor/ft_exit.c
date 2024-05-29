@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 22:28:42 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 18:19:58 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:00:07 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_exit(char **cmd, t_ms *ms, int msg_flag, t_env **env_s)
 	(void)env_s;
 	if (!cmd[1])
 		cmd[1] = "0";
+	ft_change_shellvl(ms, 0);
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (msg_flag == 0)
 		exit(ft_atoi(cmd[1]));

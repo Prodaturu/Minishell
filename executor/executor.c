@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:58:51 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 18:02:26 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 22:45:59 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	executor(t_ms *mini)
 
 	ncmd = count_cmd(mini->cmd);
 	if (ft_strcmp(mini->cmd->args[0], "./minishell") == 0)
-		ft_change_shellvl(mini);
+		ft_change_shellvl(mini, 1);
 	if (ncmd == 1)
 	{
 		simple_exec(mini);
