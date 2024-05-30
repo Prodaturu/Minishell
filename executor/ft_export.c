@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:40:05 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 01:09:57 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 03:07:57 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	ft_export(char *name, t_env **env_s, t_ms *ms)
 	char	**newenv;
 
 	newenv = ft_split(name, '=');
+	append_env = ft_strdup("");
 	if (ft_strnstr(newenv[0], "+", ft_strlen(newenv[0])))
 	{
+		free(append_env);
 		append_env = ft_strdup(newenv[0]);
 		free(newenv[0]);
 		newenv[0] = ft_substr(append_env, 0, ft_strlen(append_env) - 1);
@@ -64,6 +66,7 @@ void	ft_export(char *name, t_env **env_s, t_ms *ms)
 			tmp = tmp->next;
 		}
 		append_node(env_s, newenv[0], newenv[1]);
+		free(append_env);
 	}
 	else
 		{free(newenv[0]);

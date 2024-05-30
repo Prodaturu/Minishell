@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:33:36 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 00:08:23 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:21:40 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*set_newpath(char *path, char *home, char *pwd, char *oldpwd)
 		newpath = ft_strdup(oldpwd);
 	else if (ft_strcmp(path, pwd) == 0 || ft_strcmp(path, ".") == 0)
 		newpath = ft_strdup(pwd);
-	else if (ft_strcmp(path, "..") == 0)
+	else if (ft_strcmp(path, "..") == 0 || ft_strncmp(path, "../", 3) == 0)
 	{
 		path = ft_strrchr(pwd, '/');
 		if (path == pwd)
@@ -76,6 +76,7 @@ void	ft_cd(char *path, t_env **env_s, t_ms *ms)
 	newpath = NULL;
 	newpath = set_newpath(path, home, pwd, oldpwd);
 	ft_setenv("OLDPWD", pwd, 1, *env_s);
+	printf("%d\n", chdir(newpath));
 	if (chdir(newpath) == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);

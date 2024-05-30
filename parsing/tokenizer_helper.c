@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:35:32 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 00:05:02 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 02:28:13 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_token	*unclosed_quote_token(void)
 	if (!token)
 		return (NULL);
 	token->type = ERR;
-	printf("ERROR: Unclosed quote----------\n");
 	token->value = ft_strdup("Unclosed quote");
 	token->next = NULL;
 	return (token);
