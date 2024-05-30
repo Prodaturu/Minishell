@@ -6,7 +6,11 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/05/30 08:56:22 by sprodatu         ###   ########.fr       */
+=======
+/*   Updated: 2024/05/30 00:09:08 by trosinsk         ###   ########.fr       */
+>>>>>>> 550b40794af7c3d74ccc3fcf45a6a1459e5da3a8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,35 +112,3 @@ void	expand(t_ms *ms)
 	}
 	ms->cmd = temp;
 }
-
-// void	expand(t_ms *ms)
-// {
-// 	t_cmd	*temp;
-// 	int		i;
-// 	int		s_flag;
-
-// 	temp = ms->cmd;
-// 	while (ms->cmd)
-// 	{
-// 		i = 0;
-// 		s_flag = 0;
-// 		while (ms->cmd->args && ms->cmd->args[i] != NULL)
-// 		{
-// 			if (check_and_expand(&ms->cmd->args[i], ms, &s_flag))
-// 			{
-// 				if (s_flag)
-// 				{
-// 					replace_and_free_args(&ms->cmd->args, &i, &s_flag);
-// 					i++;
-// 					break ;
-// 				}
-// 				else
-// 					i++;
-// 			}
-// 			else
-// 				i++;
-// 		}
-// 		ms->cmd = ms->cmd->next;
-// 	}
-// 	ms->cmd = temp;
-// }

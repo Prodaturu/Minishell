@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 19:36:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 01:08:22 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:10:42 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,3 @@ void	ft_execve(t_cmd *cmd, t_env **env_s, t_ms *mini)
 		exit(127);
 	}
 }
-// exit(127);

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 08:57:13 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:03:48 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,24 @@ int	process(t_ms *ms)
 	return (free_commands(ms->cmd), free(ms->input), 1);
 }
 
+static void	clear_ms(t_ms *ms)
+{
+	if (ms->input)
+		free(ms->input);
+	if (ms->cmd)
+		free_commands(ms->cmd);
+	if (ms->pids)
+		free(ms->pids);
+	if (ms->env_s)
+		free_struct(&ms->env_s);
+	if (ms->token)
+		free_tokens(ms->token);
+	if (ms->env)
+		free_array(ms->env, 0);
+	if (ms)
+		free(ms);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
@@ -91,5 +109,6 @@ int	main(int argc, char **argv, char **envp)
 	while (9)
 		if (!process(&ms))
 			continue ;
+	clear_ms(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }

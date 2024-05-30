@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:40:05 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 22:16:16 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 01:09:57 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_export(char *name, t_env **env_s, t_ms *ms)
 		append_node(env_s, newenv[0], newenv[1]);
 	}
 	else
-		free(newenv[0]);
+		{free(newenv[0]);
+		free(append_env);}
 	export_helper(newenv, env_s, ms);
 }
 

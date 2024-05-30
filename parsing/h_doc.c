@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_doc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:53:31 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/26 03:34:10 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:08:52 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	heredoc(int fd, char *del, t_ms *mini)
 		free(line);
 	}
 }
-
-// remove_element
 
 void	remove_element(char ***array_ptr, int index)
 {

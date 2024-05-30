@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:32:47 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 22:10:11 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 01:17:37 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ void	new_env_exp(char *append_env, t_env *tmp, char **newenv)
 	else
 		tmp->env_value = env_strdup(tmp, newenv);
 	free(append_env);
+	free(newenv);
 }
