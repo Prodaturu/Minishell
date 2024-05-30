@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 22:31:48 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 04:44:13 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,25 @@ void	free_commands(t_cmd *cmd)
 	}
 }
 
+int	has_something(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] != ' ' && input[i] != '\t')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	wrong_input(char *input)
 {
 	if (!input)
 		return (printf("ERROR! No input"), 0);
-	if (ft_strlen(input) == 0 || input[0] == '\0')
+	if (ft_strlen(input) == 0 || input[0] == '\0' || !has_something(input))
 		return (free(input), 1);
 	if (ft_strncmp(input, "clear", 5) == 0)
 		return (printf("\033[H\033[J"), free(input), 1);
@@ -65,18 +79,17 @@ int	main(int argc, char **argv, char **envp)
 	t_ms	ms;
 	t_env	*env_s;
 
+	signal_handler();
 	env_s = NULL;
 	ms.env = envp;
 	env_s = save_env(ms.env, env_s);
 	ms.env_s = env_s;
 	if (argc != 1)
 		return (printf("ERROR! Use: ./mini_shell\n"), 1);
-	signal_handler();
 	using_history();
 	rl_bind_key('\t', rl_complete);
 	while (9)
 		if (!process(&ms))
 			continue ;
-	//clear_ms_to_do(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }

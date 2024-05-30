@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 22:47:26 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 23:28:34 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,6 @@ int	parse(t_ms *ms)
 	free_tokens(ms->token);
 	return (1);
 }
-
-	// expand(ms);
-	// if (!redirections(ms))
-	// 	return (free_tokens(ms->token), 0);
-	// free_tokens(ms->token);
 
 // parse function:
 // 1. Call lexing function.
