@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 00:00:35 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 01:36:05 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 08:56:52 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	process_args(t_cmd *cmd, t_ms *ms)
 			{
 				replace_and_free_args(&cmd->args, &i, &s_flag);
 				i++;
-				break ;
+				continue ;
 			}
 			else
 				i++;
