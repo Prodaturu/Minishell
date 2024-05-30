@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/29 00:55:09 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/31 01:02:30 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ int	handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms)
 {
 	if (*i < (int)ft_strlen(str))
 		(*i)++;
-	while (str[*i] && str[*i] != '\"')
+	while (str[(*i) + 1] && str[*i] != '\"')
 	{
 		if (str[*i] == '$' && str[(*i) + 1] != '\"' && str[(*i) + 1] != ' ')
+		{
 			handle_expansion(str, i, ex_str, ms);
+			(*i)--;
+		}
 		else
 			*ex_str = ft_strnjoin(*ex_str, &str[*i], 1);
 		(*i)++;
@@ -96,5 +99,6 @@ int	handle_expansion(char *str, int *i, char **ex_str, t_ms *ms)
 		(*i)++;
 	if (str[*i] == '$' || str[*i] == '?')
 		return (handle_pid_exitcode_ex(str, i, ex_str, ms));
-	return (expand_and_join(str, i, ex_str, ms));
+	expand_and_join(str, i, ex_str, ms);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 00:06:56 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:13:40 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			expand_and_join(char *str, int *i, char **ex_str, t_ms *ms);
 void		process_args(t_cmd *cmd, t_ms *ms);
 
 //: redrection functions:
-void		handle_redirection(t_ms *mini);
+int			handle_redirection(t_ms *mini);
 
 //: redrection_helper functions:
 int			check_file(char *path);
