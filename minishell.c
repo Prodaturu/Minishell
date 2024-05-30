@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 22:20:44 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:07:48 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,5 @@ int	main(int argc, char **argv, char **envp)
 	while (9)
 		if (!process(&ms))
 			break ;
-	// clear_ms(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }

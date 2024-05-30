@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 00:02:39 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:06:56 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ int			syntax_error(t_ms *ms);
 //: commands functions:
 int			commands(t_ms *ms);
 int			has_something(char *input);
-
 
 //: commands_helper functions:
 int			get_args(t_token **token, t_cmd *cmd);
