@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:09:55 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 19:07:27 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 20:42:24 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_setenv(char *name, char *value, int overwrite, t_env *env_s)
 {
 	t_env	*tmp;
+	char *new_value;
 
 	tmp = env_s;
 	while (tmp)
@@ -23,8 +24,9 @@ void	ft_setenv(char *name, char *value, int overwrite, t_env *env_s)
 		{
 			if (overwrite == 1)
 			{
+				new_value = ft_strdup(value);
 				free(tmp->env_value);
-				tmp->env_value = ft_strdup(value);
+				tmp->env_value = new_value;
 			}
 			return ;
 		}

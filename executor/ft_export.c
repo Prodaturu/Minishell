@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 19:40:05 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 01:09:57 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:31:21 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ char	*env_strjoin(t_env *tmp, char **newenv)
 	return (str);
 }
 
+char	*plus_case(char *newenv, char **append_env)
+{
+	free(*append_env);
+	*append_env = ft_strdup(newenv);
+	free(newenv);
+	newenv = ft_substr(*append_env, 0, ft_strlen(*append_env) - 1);
+	return (newenv);
+}
+
 void	ft_export(char *name, t_env **env_s, t_ms *ms)
 {
 	t_env	*tmp;
@@ -48,12 +57,9 @@ void	ft_export(char *name, t_env **env_s, t_ms *ms)
 	char	**newenv;
 
 	newenv = ft_split(name, '=');
+	append_env = ft_strdup("");
 	if (ft_strnstr(newenv[0], "+", ft_strlen(newenv[0])))
-	{
-		append_env = ft_strdup(newenv[0]);
-		free(newenv[0]);
-		newenv[0] = ft_substr(append_env, 0, ft_strlen(append_env) - 1);
-	}
+		newenv[0] = plus_case(newenv[0], &append_env);
 	if (newenv[1])
 	{
 		tmp = *env_s;
@@ -66,8 +72,8 @@ void	ft_export(char *name, t_env **env_s, t_ms *ms)
 		append_node(env_s, newenv[0], newenv[1]);
 	}
 	else
-		{free(newenv[0]);
-		free(append_env);}
+		free(newenv[0]);
+	free(append_env);
 	export_helper(newenv, env_s, ms);
 }
 
@@ -90,9 +96,7 @@ void	ft_export_prep(char **cmd, t_env **env_s, t_ms *ms)
 	while (cmd[i])
 	{
 		if (input_checker(cmd[0], cmd[i], ms, env_s))
-		{
 			ft_export(cmd[i], env_s, ms);
-		}
 		i++;
 	}
 }
