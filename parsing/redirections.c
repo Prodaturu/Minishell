@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:50:16 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/27 22:47:55 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 23:30:27 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,19 @@ int	handle_redirection_helper(t_ms *mini, t_cmd *cmd, int *i)
 	{
 		if (!handle_redirection_in(mini, cmd, i))
 			return (remove_args(cmd), 0);
+			// return (0);
 	}
 	else if (cmd->args[*i][0] == '>')
 	{
 		if (!handle_redirection_out(mini, cmd, i))
 			return (remove_args(cmd), 0);
+			// return (0);
+
 	}
 	return (1);
 }
 
-void	handle_redirection(t_ms *mini)
+int	handle_redirection(t_ms *mini)
 {
 	t_cmd	*temp;
 	int		i;
@@ -91,7 +94,7 @@ void	handle_redirection(t_ms *mini)
 			if (!handle_redirection_helper(mini, mini->cmd, &i))
 			{
 				if (!mini->cmd->next)
-					return ;
+					return (0);
 				break ;
 			}
 			i++;
@@ -99,4 +102,5 @@ void	handle_redirection(t_ms *mini)
 		mini->cmd = mini->cmd->next;
 	}
 	mini->cmd = temp;
+	return (1);
 }

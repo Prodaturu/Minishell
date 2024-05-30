@@ -6,7 +6,7 @@
 /*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:53:31 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 00:08:52 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 22:46:09 by trosinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
+	if ((*s1 != *s2) || (*s1 == '\0') || (*s2 == '\0'))
+		return ((unsigned char)*s1 - (unsigned char)*s2);
 	while (*s1 && (*s1 == *s2))
 	{
 		s1++;
