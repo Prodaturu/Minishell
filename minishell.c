@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 12:03:48 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/30 22:20:44 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,32 @@ int	process(t_ms *ms)
 	if (ms->input)
 		add_history(ms->input);
 	else
-		return (0);
+		return (printf("exit\n"), 0);
 	if (wrong_input(ms->input))
-		return (0);
+		return (1);
 	if (!parse(ms))
-		return (free(ms->input), 0);
+		return (free(ms->input), 1);
 	executor(ms);
 	return (free_commands(ms->cmd), free(ms->input), 1);
 }
 
-static void	clear_ms(t_ms *ms)
-{
-	if (ms->input)
-		free(ms->input);
-	if (ms->cmd)
-		free_commands(ms->cmd);
-	if (ms->pids)
-		free(ms->pids);
-	if (ms->env_s)
-		free_struct(&ms->env_s);
-	if (ms->token)
-		free_tokens(ms->token);
-	if (ms->env)
-		free_array(ms->env, 0);
-	if (ms)
-		free(ms);
-}
+// static void	clear_ms(t_ms *ms)
+// {
+// 	if (ms->input)
+// 		free(ms->input);
+// 	if (ms->cmd)
+// 		free_commands(ms->cmd);
+// 	if (ms->pids)
+// 		free(ms->pids);
+// 	if (ms->env_s)
+// 		free_struct(&ms->env_s);
+// 	if (ms->token)
+// 		free_tokens(ms->token);
+// 	if (ms->env)
+// 		free_array(ms->env, 0);
+// 	if (ms)
+// 		free(ms);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -108,7 +108,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_bind_key('\t', rl_complete);
 	while (9)
 		if (!process(&ms))
-			continue ;
-	clear_ms(&ms);
+			break ;
+	// clear_ms(&ms);
 	return (clear_history(), (void)argv, (void)argc, 0);
 }

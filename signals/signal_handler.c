@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 05:08:46 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/30 03:04:37 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/05/30 22:40:08 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	signal_handler(void)
 		fprintf(stderr, "Error: Failed to set terminal settings\n");
 		exit(1);
 	}
+
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
