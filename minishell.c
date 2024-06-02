@@ -33,7 +33,7 @@ void	free_commands(t_cmd *cmd)
 	}
 }
 
-int	has_something(char *input)
+int	has_something(const char *input)
 {
 	int	i;
 
