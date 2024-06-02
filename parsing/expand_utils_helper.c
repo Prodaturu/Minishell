@@ -66,7 +66,7 @@ int	expand_and_join(char *str, int *i, char **ex_str, t_ms *ms)
 	return (1);
 }
 
-char	**new_args_maker(char **new_args, char **args, char **splt_args, int *n)
+char	**new_args_maker(char **new_args, char **args, char **splt_args, const int *n)
 {
 	int	i;
 	int	j;

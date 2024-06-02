@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char	**allocate_new_args(char **args, char *temp, char **split_args, int *n)
+char	**allocate_new_args(char **args, const char *temp, char **split_args, int *n)
 {
 	int		i;
 	int		j;
