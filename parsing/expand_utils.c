@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms)
+int	handle_pid_exitcode_ex(const char *str, int *i, char **ex_str, t_ms *ms)
 {
 	char	*expansion;
 

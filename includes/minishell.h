@@ -158,7 +158,7 @@ int			check_and_expand(char **s, t_ms *ms, int *s_flag);
 void		replace_and_free_args(char ***args, int *n, int *s_flag);
 
 //: expand_utils.c:
-int			handle_pid_exitcode_ex(char *str, int *i, char **ex_str, t_ms *ms);
+int			handle_pid_exitcode_ex(const char *str, int *i, char **ex_str, t_ms *ms);
 int			handle_dquotes(char *str, int *i, char **ex_str, t_ms *ms);
 int			handle_squotes(char *str, int *i, char **ex_str);
 int			handle_expansion(char *str, int *i, char **ex_str, t_ms *ms);
@@ -167,7 +167,7 @@ char		*ft_strnjoin(char *s1, const char *s2, size_t n);
 //: expand_utils_helper.c:
 void		ft_strnjoin_helper(char *dest, const char *src, size_t n);
 char		*get_env(const char *name, char **env);
-char		**new_args_maker(char **n_as, char **as, char **s_as, int *n);
+char		**new_args_maker(char **n_as, char **as, char **s_as, const int *n);
 int			expand_and_join(char *str, int *i, char **ex_str, t_ms *ms);
 void		process_args(t_cmd *cmd, t_ms *ms);
 
