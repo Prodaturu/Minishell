@@ -145,7 +145,7 @@ int			syntax_error(t_ms *ms);
 
 //: commands functions:
 int			commands(t_ms *ms);
-int			has_something(char *input);
+int			has_something(const char *input);
 
 //: commands_helper functions:
 int			get_args(t_token **token, t_cmd *cmd);
