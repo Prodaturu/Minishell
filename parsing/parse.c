@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 01:18:36 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 00:19:50 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:40:48 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	parse(t_ms *ms)
 		return (free_tokens(ms->token), 0);
 	if (!commands(ms))
 		return (free_tokens(ms->token), 0);
-	print_commands(ms->cmd);
-	printf("before expander\n");
+	// print_commands(ms->cmd);
+	// printf("before expander\n");
 	expand(ms);
-	printf("after expander\n");
-	print_commands(ms->cmd);
+	// printf("after expander\n");
+	// print_commands(ms->cmd);
 	if (!handle_redirection(ms))
 		return (free_tokens(ms->token), 0);
 	free_tokens(ms->token);

@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:45:19 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 01:36:45 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:24:38 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*str_expander(char *expanded_str, char *str, int *s_flag, t_ms *ms)
 
 	i = 0;
 	len = ft_strlen(str);
-	while (i++ < len)
+	while (i < len)
 	{
 		if (str[i] == '\'' || str[i] == '\"' || str[i] == '$')
 		{
@@ -78,6 +78,7 @@ char	*str_expander(char *expanded_str, char *str, int *s_flag, t_ms *ms)
 		}
 		else
 			expanded_str = ft_strnjoin(expanded_str, &str[i], 1);
+		i++;
 	}
 	return (expanded_str);
 }
