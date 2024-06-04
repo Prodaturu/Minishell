@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+// The functions in this file check for any syntax error in the input line from the user
+
 int	redir_error_check(t_token *token)
 {
 	if (!token->next || token->next->type != WORD)
