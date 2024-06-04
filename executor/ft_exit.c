@@ -35,22 +35,53 @@ void	ft_exit(char **cmd, t_ms *ms, int msg_flag, t_env **env_s)
 	}
 }
 
-int	msg_calc(char **cmd, int i, int j, int msg_flag)
+int msg_calc(char **cmd, int i, int j, int msg_flag)
 {
-	int	digit_flag;
+    int digit_flag;
 
-	digit_flag = 0;
-	if (i > 1 && msg_flag == 0)
-		msg_flag = 2;
-	else if (ft_isdigit(cmd[i][j]))
-		digit_flag = 1;
-	else if (!ft_isdigit(cmd[i][j]) && cmd[i][j] != '-'
-		&& cmd[i][j] != '+' && msg_flag != 2)
-		msg_flag = 1;
-	else if (ft_atoi(cmd[i]) == 0 && digit_flag == 0 && msg_flag != 2)
-		msg_flag = 1;
-	return (msg_flag);
+    digit_flag = 0;
+    if (i > 1 && msg_flag == 0)
+    {
+        msg_flag = 2;
+    }
+    else if (ft_isdigit(cmd[i][j]) || (cmd[i][j] == '-' && j == 0))
+    {
+        digit_flag = 1;
+    }
+    else
+    {
+        if (msg_flag != 2)
+        {
+            msg_flag = 1;
+        }
+    }
+    if (ft_atoi(cmd[i]) == 0 && digit_flag == 0)
+    {
+        if (msg_flag != 2)
+        {
+            msg_flag = 1;
+        }
+    }
+    return msg_flag;
 }
+
+
+// int	msg_calc(char **cmd, int i, int j, int msg_flag)
+// {
+// 	int	digit_flag;
+
+// 	digit_flag = 0;
+// 	if (i > 1 && msg_flag == 0)
+// 		msg_flag = 2;
+// 	else if (ft_isdigit(cmd[i][j]))
+// 		digit_flag = 1;
+// 	else if (!ft_isdigit(cmd[i][j]) && cmd[i][j] != '-'
+// 		&& cmd[i][j] != '+' && msg_flag != 2)
+// 		msg_flag = 1;
+// 	else if (ft_atoi(cmd[i]) == 0 && digit_flag == 0 && msg_flag != 2)
+// 		msg_flag = 1;
+// 	return (msg_flag);
+// }
 
 void	ft_exit_prep(char **cmd, t_env **env_s, t_ms *ms)
 {
