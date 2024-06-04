@@ -32,26 +32,23 @@ int	pipe_error_check(t_token *token)
 	return (0);
 }
 
-int	syntax_error(t_ms *ms)
+int syntax_error(t_ms *ms)
 {
-	t_token	*token;
+    t_token *token;
 
-	token = ms->token;
-	while (token)
-	{
-		if (token->type == PIPE && pipe_error_check(token))
-		{
-			ms->exit_code = 258;
-			return (1);
-		}
-		else if ((token->type == IN || token->type == H_DOC
-				|| token->type == OUT || token->type == APPEND)
-			&& redir_error_check(token) && token->type != WORD)
-		{
-			ms->exit_code = 258;
-			return (1);
-		}
-		token = token->next;
-	}
-	return (0);
+    token = ms->token;
+    while (token)
+    {
+        if ((token->type == PIPE && pipe_error_check(token)) ||
+            ((token->type == IN || token->type == H_DOC || 
+              token->type == OUT || token->type == APPEND) && 
+             redir_error_check(token)))
+        {
+            ms->exit_code = 258;
+            return 1;
+        }
+        token = token->next;
+    }
+    return 0;
 }
+
