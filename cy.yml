@@ -1,0 +1,17 @@
+name: C/C++ CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up dependencies
+        run: sudo apt-get install -y libreadline-dev
+
+      - name: Build project
+        run: make
