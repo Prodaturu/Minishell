@@ -12,80 +12,70 @@
 
 #include "../includes/minishell.h"
 
-void	print_commands(t_cmd *cmd)
-{
-	t_cmd	*current;
-	int		i;
+void print_commands(t_cmd *cmd) {
+  t_cmd *current;
+  int i;
 
-	i = 0;
-	if (cmd == NULL)
-	{
-		printf("No commands to print.\n");
-		return ;
-	}
-	current = cmd;
-	while (current != NULL)
-	{
-		printf("Command Arguments: ");
-		if (current->args != NULL)
-		{
-			while (current->args[i] != NULL)
-			{
-				printf("argument ->|--:%s:--|\n", current->args[i]);
-				i++;
-			}
-		}
-		printf("\ncommands done\n");
-		current = current->next;
-	}
+  i = 0;
+  if (cmd == NULL) {
+    printf("No commands to print.\n");
+    return;
+  }
+  current = cmd;
+  while (current != NULL) {
+    printf("Command Arguments: ");
+    if (current->args != NULL) {
+      while (current->args[i] != NULL) {
+        printf("argument ->|--:%s:--|\n", current->args[i]);
+        i++;
+      }
+    }
+    printf("\ncommands done\n");
+    current = current->next;
+  }
 }
 
-void	free_tokens(t_token *token)
-{
-	t_token	*temp;
-	t_token	*temp2;
+void free_tokens(t_token *token) {
+  t_token *temp;
+  t_token *temp2;
 
-	temp = token;
-	while (temp != NULL)
-	{
-		temp2 = temp->next;
-		if (temp->value != NULL)
-			free(temp->value);
-		free(temp);
-		temp = temp2;
-	}
+  temp = token;
+  while (temp != NULL) {
+    temp2 = temp->next;
+    if (temp->value != NULL)
+      free(temp->value);
+    free(temp);
+    temp = temp2;
+  }
 }
 
-void	print_tokens(t_token *token)
-{
-	t_token	*temp;
+void print_tokens(t_token *token) {
+  t_token *temp;
 
-	temp = token;
-	while (temp)
-	{
-		printf("\n--------\nToken Type: %d\n", temp->type);
-		printf("Token Value: %s\n", temp->value);
-		temp = temp->next;
-	}
+  temp = token;
+  while (temp) {
+    printf("\n--------\nToken Type: %d\n", temp->type);
+    printf("Token Value: %s\n", temp->value);
+    temp = temp->next;
+  }
 }
 
-int	parse(t_ms *ms)
-{
-	if (!lexing(ms))
-		return (free_tokens(ms->token), 0);
-	if (syntax_error(ms))
-		return (free_tokens(ms->token), 0);
-	if (!commands(ms))
-		return (free_tokens(ms->token), 0);
-	// print_commands(ms->cmd);
-	// printf("before expander\n");
-	expand(ms);
-	// printf("after expander\n");
-	// print_commands(ms->cmd);
-	if (!handle_redirection(ms))
-		return (free_tokens(ms->token), 0);
-	free_tokens(ms->token);
-	return (1);
+int parse(t_ms *ms) {
+  if (!lexing(ms))
+    return (free_tokens(ms->token), 0);
+  if (syntax_error(ms))
+    return (free_tokens(ms->token), 0);
+  if (!commands(ms))
+    return (free_tokens(ms->token), 0);
+  // print_commands(ms->cmd);
+  // printf("before expander\n");
+  expand(ms);
+  // printf("after expander\n");
+  // print_commands(ms->cmd);
+  if (!handle_redirection(ms))
+    return (free_tokens(ms->token), 0);
+  free_tokens(ms->token);
+  return (1);
 }
 
 // parse function:

@@ -12,24 +12,22 @@
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
-{
-	unsigned int	length;
-	char			*new_str;
-	unsigned int	index;
+char *ft_strmapi(char const *s, char (*f)(unsigned int, char)) {
+  unsigned int length;
+  char *new_str;
+  unsigned int index;
 
-	index = 0;
-	length = ft_strlen(s);
-	if (!s || !f)
-		return (NULL);
-	new_str = (char *)malloc(length + 1);
-	if (!new_str)
-		return (NULL);
-	while (index < length)
-	{
-		new_str[index] = f(index, s[index]);
-		index++;
-	}
-	new_str[length] = '\0';
-	return (new_str);
+  index = 0;
+  length = ft_strlen(s);
+  if (!s || !f)
+    return (NULL);
+  new_str = (char *)malloc(length + 1);
+  if (!new_str)
+    return (NULL);
+  while (index < length) {
+    new_str[index] = f(index, s[index]);
+    index++;
+  }
+  new_str[length] = '\0';
+  return (new_str);
 }

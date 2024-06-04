@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #ifndef SIGNAL_HANDLER_H
-# define SIGNAL_HANDLER_H
+#define SIGNAL_HANDLER_H
 
-# include <signal.h>
-# include <termios.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdbool.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <unistd.h>
 
-typedef bool	t_bool;
+typedef bool t_bool;
 
-void	signal_handler(void);
+void signal_handler(void);
 
 #endif

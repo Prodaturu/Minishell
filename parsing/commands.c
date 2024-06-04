@@ -12,56 +12,52 @@
 
 #include "../includes/minishell.h"
 
-int	new_cmd(t_cmd **prev, t_token **token, t_cmd **cmd)
-{
-	t_cmd	*new;
+int new_cmd(t_cmd **prev, t_token **token, t_cmd **cmd) {
+  t_cmd *new;
 
-	new = malloc(sizeof(t_cmd));
-	if (!new)
-		return (perror("ERROR! malloc fail"), 0);
-	new->prev = *prev;
-	new->args = NULL;
-	new->next = NULL;
-	new->fd_in = STDIN_FILENO;
-	new->fd_out = STDOUT_FILENO;
-	if (*prev)
-		(*prev)->next = new;
-	if (!*cmd)
-		*cmd = new;
-	*prev = new;
-	if ((*token)->prev && (*token)->prev->type != PIPE)
-		*token = (*token)->next;
-	return (1);
+  new = malloc(sizeof(t_cmd));
+  if (!new)
+    return (perror("ERROR! malloc fail"), 0);
+  new->prev = *prev;
+  new->args = NULL;
+  new->next = NULL;
+  new->fd_in = STDIN_FILENO;
+  new->fd_out = STDOUT_FILENO;
+  if (*prev)
+    (*prev)->next = new;
+  if (!*cmd)
+    *cmd = new;
+  *prev = new;
+  if ((*token)->prev && (*token)->prev->type != PIPE)
+    *token = (*token)->next;
+  return (1);
 }
 
-int	create_cmds(t_token *token, t_cmd **cmds)
-{
-	t_cmd	*cmd;
+int create_cmds(t_token *token, t_cmd **cmds) {
+  t_cmd *cmd;
 
-	cmd = NULL;
-	while (token->type != END)
-	{
-		if ((token->prev == NULL || token->prev->type == PIPE)
-			&& !new_cmd(&cmd, &token, cmds))
-			return (0);
-		else if (token->type != PIPE && !get_args(&token, cmd))
-			return (0);
-		else if (token->type == PIPE)
-			token = token->next;
-	}
-	return (1);
+  cmd = NULL;
+  while (token->type != END) {
+    if ((token->prev == NULL || token->prev->type == PIPE) &&
+        !new_cmd(&cmd, &token, cmds))
+      return (0);
+    else if (token->type != PIPE && !get_args(&token, cmd))
+      return (0);
+    else if (token->type == PIPE)
+      token = token->next;
+  }
+  return (1);
 }
 
-int	commands(t_ms *ms)
-{
-	t_token	*token;
-	t_cmd	*cmd;
+int commands(t_ms *ms) {
+  t_token *token;
+  t_cmd *cmd;
 
-	cmd = NULL;
-	token = ms->token;
-	if (!create_cmds(token, &cmd))
-		return (0);
-	if (cmd != NULL)
-		ms->cmd = cmd;
-	return (1);
+  cmd = NULL;
+  token = ms->token;
+  if (!create_cmds(token, &cmd))
+    return (0);
+  if (cmd != NULL)
+    ms->cmd = cmd;
+  return (1);
 }

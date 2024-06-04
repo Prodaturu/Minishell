@@ -12,22 +12,19 @@
 
 #include "../includes/minishell.h"
 
-void	ft_env(t_env **env_s, t_ms *ms)
-{
-	t_env	*tmp;
+void ft_env(t_env **env_s, t_ms *ms) {
+  t_env *tmp;
 
-	ms->exit_code = 1;
-	tmp = *env_s;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->env_name, tmp->env_value);
-		tmp = tmp->next;
-	}
-	ms->exit_code = 0;
+  ms->exit_code = 1;
+  tmp = *env_s;
+  while (tmp) {
+    printf("%s=%s\n", tmp->env_name, tmp->env_value);
+    tmp = tmp->next;
+  }
+  ms->exit_code = 0;
 }
 
-void	ft_env_prep(char **cmd, t_env **env_s, t_ms *ms)
-{
-	(void)cmd;
-	ft_env(env_s, ms);
+void ft_env_prep(char **cmd, t_env **env_s, t_ms *ms) {
+  (void)cmd;
+  ft_env(env_s, ms);
 }
