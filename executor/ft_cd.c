@@ -84,11 +84,10 @@ char *set_newpath(char *path, char *home, char *pwd, char *oldpwd) {
 //     return (newpath);
 // }
 
-void	ft_cd(char *path, char *oldpwd, t_env **env_s, t_ms *ms)
-{
-	char	*pwd;
-	char	*home;
-	char	*newpath;
+void ft_cd(char *path, char *oldpwd, t_env **env_s, t_ms *ms) {
+  char *pwd;
+  char *home;
+  char *newpath;
 
   home = ft_getenv("HOME", *env_s);
   pwd = ft_getenv("PWD", *env_s);
