@@ -12,20 +12,19 @@
 
 #include "libft.h"
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
-{
-	char	*substr;
-	size_t	string_length;
+char *ft_substr(const char *s, unsigned int start, size_t len) {
+  char *substr;
+  size_t string_length;
 
-	string_length = ft_strlen(s);
-	if (start >= string_length)
-		return (ft_strdup(""));
-	if (len > string_length - start)
-		len = string_length - start;
-	substr = (char *)malloc(len + 1);
-	if (substr == NULL)
-		return (NULL);
-	ft_memcpy(substr, s + start, len);
-	substr[len] = '\0';
-	return (substr);
+  string_length = ft_strlen(s);
+  if (start >= string_length)
+    return (ft_strdup(""));
+  if (len > string_length - start)
+    len = string_length - start;
+  substr = (char *)malloc(len + 1);
+  if (substr == NULL)
+    return (NULL);
+  ft_memcpy(substr, s + start, len);
+  substr[len] = '\0';
+  return (substr);
 }

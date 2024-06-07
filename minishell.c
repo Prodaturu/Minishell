@@ -10,68 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals/signal_handler.h"
 #include "includes/minishell.h"
+#include "signals/signal_handler.h"
 
-int	g_signal = 0;
+int g_signal = 0;
 
-void	free_commands(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	int		i;
+void free_commands(t_cmd *cmd) {
+  t_cmd *tmp;
+  int i;
 
-	tmp = NULL;
-	while (cmd)
-	{
-		tmp = cmd->next;
-		i = 0;
-		while (cmd->args && cmd->args[i])
-			free(cmd->args[i++]);
-		free(cmd->args);
-		free(cmd);
-		cmd = tmp;
-	}
+  tmp = NULL;
+  while (cmd) {
+    tmp = cmd->next;
+    i = 0;
+    while (cmd->args && cmd->args[i])
+      free(cmd->args[i++]);
+    free(cmd->args);
+    free(cmd);
+    cmd = tmp;
+  }
 }
 
-int	has_something(char *input)
-{
-	int	i;
+int has_something(const char *input) {
+  int i;
 
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] != ' ' && input[i] != '\t')
-			return (1);
-		i++;
-	}
-	return (0);
+  i = 0;
+  while (input[i]) {
+    if (input[i] != ' ' && input[i] != '\t')
+      return (1);
+    i++;
+  }
+  return (0);
 }
 
-int	wrong_input(char *input)
-{
-	if (!input)
-		return (printf("ERROR! No input"), 0);
-	if (ft_strlen(input) == 0 || input[0] == '\0' || !has_something(input))
-		return (free(input), 1);
-	if (ft_strncmp(input, "clear", 5) == 0)
-		return (printf("\033[H\033[J"), free(input), 1);
-	return (0);
+int wrong_input(char *input) {
+  if (!input)
+    return (printf("ERROR! No input"), 0);
+  if (ft_strlen(input) == 0 || input[0] == '\0' || !has_something(input))
+    return (free(input), 1);
+  if (ft_strncmp(input, "clear", 5) == 0)
+    return (printf("\033[H\033[J"), free(input), 1);
+  return (0);
 }
 
-int	process(t_ms *ms)
-{
-	g_signal = 0;
-	ms->input = readline("PROSI-shell$ :");
-	if (ms->input)
-		add_history(ms->input);
-	else
-		return (printf("exit\n"), 0);
-	if (wrong_input(ms->input))
-		return (1);
-	if (!parse(ms))
-		return (free(ms->input), 1);
-	executor(ms);
-	return (free_commands(ms->cmd), free(ms->input), 1);
+int process(t_ms *ms) {
+  g_signal = 0;
+  ms->input = readline("PROSI-shell$ :");
+  if (ms->input)
+    add_history(ms->input);
+  else
+    return (printf("exit\n"), 0);
+  if (wrong_input(ms->input))
+    return (1);
+  if (!parse(ms))
+    return (free(ms->input), 1);
+  executor(ms);
+  return (free_commands(ms->cmd), free(ms->input), 1);
 }
 
 // static void	clear_ms(t_ms *ms)
@@ -92,22 +86,21 @@ int	process(t_ms *ms)
 // 		free(ms);
 // }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_ms	ms;
-	t_env	*env_s;
+int main(int argc, char **argv, char **envp) {
+  t_ms ms;
+  t_env *env_s;
 
-	signal_handler();
-	env_s = NULL;
-	ms.env = envp;
-	env_s = save_env(ms.env, env_s);
-	ms.env_s = env_s;
-	if (argc != 1)
-		return (printf("ERROR! Use: ./mini_shell\n"), 1);
-	using_history();
-	rl_bind_key('\t', rl_complete);
-	while (9)
-		if (!process(&ms))
-			break ;
-	return (clear_history(), (void)argv, (void)argc, 0);
+  signal_handler();
+  env_s = NULL;
+  ms.env = envp;
+  env_s = save_env(ms.env, env_s);
+  ms.env_s = env_s;
+  if (argc != 1)
+    return (printf("ERROR! Use: ./mini_shell\n"), 1);
+  using_history();
+  rl_bind_key('\t', rl_complete);
+  while (9)
+    if (!process(&ms))
+      break;
+  return (clear_history(), (void)argv, (void)argc, 0);
 }

@@ -12,17 +12,16 @@
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	size_t	allocated_size;
+void *ft_calloc(size_t count, size_t size) {
+  void *ptr;
+  size_t allocated_size;
 
-	if (count > 2147483647 || size > 2147483647)
-		return (NULL);
-	allocated_size = count * size;
-	ptr = malloc(allocated_size);
-	if (ptr == NULL)
-		return (NULL);
-	ft_bzero(ptr, allocated_size);
-	return (ptr);
+  if (count > 2147483647 || size > 2147483647)
+    return (NULL);
+  allocated_size = count * size;
+  ptr = malloc(allocated_size);
+  if (ptr == NULL)
+    return (NULL);
+  ft_bzero(ptr, allocated_size);
+  return (ptr);
 }
