@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trosinsk <trosinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:33:36 by trosinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 20:56:04 by trosinsk         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:29:52 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,32 @@ char	*set_newpath(char *path, char *home, char *pwd, char *oldpwd)
 		newpath = newpath_join(newpath, pwd, path);
 	return (newpath);
 }
+
+// char	*set_newpath(char *path, char *home, char *pwd, char *oldpwd)
+// {
+//     char	*newpath;
+
+//     newpath = NULL;
+//     if (path == NULL || ft_strncmp(path, "~", 1) == 0)
+//         newpath = ft_strdup(home);
+//     else if (ft_strncmp(path, "-", 1) == 0)
+//         newpath = ft_strdup(oldpwd);
+//     else if (ft_strncmp(path, "..", 2) == 0)
+//     {
+//         path = ft_strrchr(pwd, '/');
+//         if (path == pwd)
+//             newpath = ft_strdup("/");
+//         else
+//             newpath = ft_substr(pwd, 0, path - pwd);
+//     }
+//     else if (ft_strcmp(path, pwd) == 0 || ft_strncmp(path, ".", 1) == 0)
+//         newpath = ft_strdup(pwd);
+//     else if (path[0] == '/')
+//         newpath = ft_strdup(path);
+//     else
+//         newpath = newpath_join(newpath, pwd, path);
+//     return (newpath);
+// }
 
 void	ft_cd(char *path, char *oldpwd, t_env **env_s, t_ms *ms)
 {
