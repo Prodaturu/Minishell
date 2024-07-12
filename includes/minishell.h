@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 07:36:28 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 00:13:40 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:01:25 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "../libft/libft.h"
 #include <errno.h>
 #include <fcntl.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +24,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 
 #define MAX_PATH_LENGTH 1024
 

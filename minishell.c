@@ -6,7 +6,7 @@
 /*   By: sprodatu <sprodatu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 04:53:55 by sprodatu          #+#    #+#             */
-/*   Updated: 2024/05/31 00:07:48 by sprodatu         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:01:01 by sprodatu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int process(t_ms *ms) {
     return (1);
   if (!parse(ms))
     return (free(ms->input), 1);
-  executor(ms);
+  // executor(ms);
   return (free_commands(ms->cmd), free(ms->input), 1);
 }
 
