@@ -3,7 +3,7 @@
 ## Grade: 101/100
 
 **Minishell** is a 42 school project that involves reimplementing a "mini" bash terminal. 
-In this project, I've re-implemented the following built-in functions:
+In this project, We've re-implemented the following built-in functions:
 
 ![](./extras/showcase.gif)
 
