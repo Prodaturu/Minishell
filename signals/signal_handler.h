@@ -13,14 +13,14 @@
 #ifndef SIGNAL_HANDLER_H
 #define SIGNAL_HANDLER_H
 
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
-#include <readline/history.h>
-#include <readline/readline.h>
 
 typedef bool t_bool;
 
